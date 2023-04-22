@@ -6,7 +6,7 @@ public class InAttackRangeCheck : StateDecision
     public override bool Check(FiniteStateMachine fms)
     {
         float distance = (fms.Target.position - fms.transform.position).magnitude;
-        Debug.Log(distance);
+        // Debug.Log(distance);
         return distance <= fms.Config.attackRange;
     }
 }
