@@ -35,30 +35,30 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
 
-        animator.SetFloat("Speed", Mathf.Abs(moveInput));
+        // animator.SetFloat("Speed", Mathf.Abs(moveInput));
+        //
+        // bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, ground);
+        // animator.SetBool("IsGrounded", isGrounded);
 
-        bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, ground);
-        animator.SetBool("IsGrounded", isGrounded);
+        // if (Input.GetButtonDown("Jump") && isGrounded)
+        // {
+        //     rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        //     animator.SetTrigger("Jump");
+        // }
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            animator.SetTrigger("Jump");
-        }
-
-        if (rb.velocity.y < 0)
-        {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-            animator.SetBool("IsFalling", true);
-        }
-        else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
-        {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-        }
-        else
-        {
-            animator.SetBool("IsFalling", false);
-        }
+        // if (rb.velocity.y < 0)
+        // {
+        //     rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        //     animator.SetBool("IsFalling", true);
+        // }
+        // else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
+        // {
+        //     rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        // }
+        // else
+        // {
+        //     animator.SetBool("IsFalling", false);
+        // }
     }
 
     private void Flip()

@@ -3,9 +3,7 @@
 public class AttackState : State
 {
     public override StateType Type { get; }
-
-    private float _attackDelay;
-
+    
     public AttackState() : base("Attack")
     {
     }
@@ -13,7 +11,6 @@ public class AttackState : State
     protected override void OnEnterState(FiniteStateMachine fms)
     {
         fms.TriggerAnimation("Attack");
-        _attackDelay = fms.Config.attackDelay;
         SetStateDuration(fms.Config.attackDuration);
     }
 

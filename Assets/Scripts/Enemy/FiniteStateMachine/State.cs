@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StateType { Idle, Attack }
+public enum StateType { Idle, Attack, Death, MoveDown, MoveUp }
 
 public abstract class State
 {
     [HideInInspector] 
     public string name = "Idle";
-    private List<StateTransition> _transitions = new List<StateTransition>();
+    private readonly List<StateTransition> _transitions = new List<StateTransition>();
 
     private float _stateDuration;
     private float _stateTimer;
@@ -77,6 +77,12 @@ public abstract class State
                 return new IdleState();
             case StateType.Attack:
                 return new AttackState();
+            case StateType.Death:
+                return new DeathState();
+            case StateType.MoveDown:
+                return new MoveDownState();
+            case StateType.MoveUp:
+                return new MoveUpState();
         }
 
         return null;

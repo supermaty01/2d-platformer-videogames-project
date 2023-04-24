@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class IdleState : State
+﻿public class IdleState : State
 {
     public override StateType Type { get; }
     
