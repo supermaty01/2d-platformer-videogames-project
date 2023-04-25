@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StateType { Idle, Attack, Death, MoveDown, MoveUp }
+public enum StateType { Idle, Attack, Death, MoveDown, MoveUp, Patrol }
 
 public abstract class State
 {
@@ -83,8 +83,9 @@ public abstract class State
                 return new MoveDownState();
             case StateType.MoveUp:
                 return new MoveUpState();
+            case StateType.Patrol:
+                return new PatrolState();
         }
-
         return null;
     }
 }
