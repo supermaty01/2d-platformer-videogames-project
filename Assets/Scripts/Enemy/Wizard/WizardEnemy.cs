@@ -7,7 +7,7 @@ public class WizardEnemy : EnemyConfig
     [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private Transform shootPoint;
     
-    private void Start()
+    new void Start()
     {
         EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
         evt.OnAttackAction += SpawnBullet;
