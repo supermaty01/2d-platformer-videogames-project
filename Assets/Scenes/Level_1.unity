@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 254606586}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: InitialPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,6 +154,63 @@ Transform:
   m_Father: {fileID: 1433842245}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &295134015
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1660344099053734946, guid: 8bdf5c64c8097ed4bad255e8246754c5, type: 3}
+      propertyPath: m_Name
+      value: Coin
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660344099053734947, guid: 8bdf5c64c8097ed4bad255e8246754c5, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660344099053734947, guid: 8bdf5c64c8097ed4bad255e8246754c5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660344099053734947, guid: 8bdf5c64c8097ed4bad255e8246754c5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660344099053734947, guid: 8bdf5c64c8097ed4bad255e8246754c5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.07805934
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660344099053734947, guid: 8bdf5c64c8097ed4bad255e8246754c5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660344099053734947, guid: 8bdf5c64c8097ed4bad255e8246754c5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660344099053734947, guid: 8bdf5c64c8097ed4bad255e8246754c5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660344099053734947, guid: 8bdf5c64c8097ed4bad255e8246754c5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660344099053734947, guid: 8bdf5c64c8097ed4bad255e8246754c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660344099053734947, guid: 8bdf5c64c8097ed4bad255e8246754c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660344099053734947, guid: 8bdf5c64c8097ed4bad255e8246754c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8bdf5c64c8097ed4bad255e8246754c5, type: 3}
 --- !u!1 &491449011
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +222,7 @@ GameObject:
   - component: {fileID: 491449014}
   - component: {fileID: 491449013}
   - component: {fileID: 491449012}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: char_blue_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +447,7 @@ GameObject:
   - component: {fileID: 718144216}
   - component: {fileID: 718144219}
   - component: {fileID: 718144218}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +518,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 1
+  m_Constraints: 7
 --- !u!114 &718144218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,7 +587,7 @@ GameObject:
   - component: {fileID: 822758948}
   - component: {fileID: 822758949}
   - component: {fileID: 822758950}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Skeleton_sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -648,7 +705,7 @@ GameObject:
   - component: {fileID: 889190497}
   - component: {fileID: 889190499}
   - component: {fileID: 889190500}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wizard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -768,7 +825,7 @@ GameObject:
   - component: {fileID: 1107054934}
   - component: {fileID: 1107054936}
   - component: {fileID: 1107054937}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1027,7 +1084,7 @@ GameObject:
   - component: {fileID: 1174327183}
   - component: {fileID: 1174327184}
   - component: {fileID: 1174327185}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wizard_sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1142,7 +1199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1297251511}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FinalPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1173,7 +1230,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1361519575}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ShootingPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1207,7 +1264,7 @@ GameObject:
   - component: {fileID: 1433842248}
   - component: {fileID: 1433842247}
   - component: {fileID: 1433842249}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Thwomp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1748,7 +1805,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1544081530}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: InitialPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1782,7 +1839,7 @@ GameObject:
   - component: {fileID: 1595735447}
   - component: {fileID: 1595735446}
   - component: {fileID: 1595735448}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Thwomp_sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2110,7 +2167,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2094735768}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FinalPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

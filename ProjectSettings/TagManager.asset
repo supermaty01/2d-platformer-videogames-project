@@ -11,9 +11,9 @@ TagManager:
   - Tiles
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Coin
   - 
   - 
   - 
