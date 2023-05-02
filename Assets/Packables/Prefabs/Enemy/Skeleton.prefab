@@ -303,21 +303,17 @@ MonoBehaviour:
     States:
     - StateType: 5
       Transition:
+      - TargetState: 2
+        Decision: {fileID: 11400000, guid: ae7e9e2195b82174f9db9730a933034e, type: 2}
       - TargetState: 1
         Decision: {fileID: 11400000, guid: 627a3048c2314e608d07f8c2ba8e1020, type: 2}
-      - TargetState: 2
-        Decision: {fileID: 11400000, guid: ae7e9e2195b82174f9db9730a933034e, type: 2}
     - StateType: 1
       Transition:
-      - TargetState: 5
-        Decision: {fileID: 0}
       - TargetState: 2
         Decision: {fileID: 11400000, guid: ae7e9e2195b82174f9db9730a933034e, type: 2}
+      - TargetState: 5
+        Decision: {fileID: 0}
     - StateType: 2
-      Transition:
-      - TargetState: 5
-        Decision: {fileID: 0}
-      - TargetState: 2
-        Decision: {fileID: 11400000, guid: ae7e9e2195b82174f9db9730a933034e, type: 2}
+      Transition: []
   initialPos: {x: 0, y: 0, z: 0}
   finalPos: {x: 0, y: 0, z: 0}

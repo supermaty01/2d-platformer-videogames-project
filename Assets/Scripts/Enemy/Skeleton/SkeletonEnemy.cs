@@ -10,6 +10,7 @@ public class SkeletonEnemy : EnemyConfig
         
         EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
         evt.OnAttackAction += Attack;
+        evt.OnDestroyAction += DestroySkeleton;
 
     }
 
@@ -17,10 +18,16 @@ public class SkeletonEnemy : EnemyConfig
     {
         EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
         evt.OnAttackAction -= Attack;
+        evt.OnDestroyAction -= DestroySkeleton;
     }
 
     public void Attack()
     {
         Debug.Log("Skeleton Attack!");
+    }
+
+    private void DestroySkeleton()
+    {
+        Destroy(gameObject);
     }
 }
