@@ -108,10 +108,10 @@ TextureImporter:
       name: wizard idle_0
       rect:
         serializedVersion: 2
-        x: 22
-        y: 251
-        width: 30
-        height: 56
+        x: 0
+        y: 240
+        width: 80
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -129,10 +129,10 @@ TextureImporter:
       name: wizard idle_1
       rect:
         serializedVersion: 2
-        x: 100
-        y: 254
-        width: 32
-        height: 54
+        x: 80
+        y: 240
+        width: 80
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,10 +150,10 @@ TextureImporter:
       name: wizard idle_2
       rect:
         serializedVersion: 2
-        x: 179
-        y: 253
-        width: 34
-        height: 56
+        x: 160
+        y: 240
+        width: 80
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,10 +171,10 @@ TextureImporter:
       name: wizard idle_3
       rect:
         serializedVersion: 2
-        x: 18
-        y: 172
-        width: 34
-        height: 56
+        x: 0
+        y: 160
+        width: 80
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,10 +192,10 @@ TextureImporter:
       name: wizard idle_4
       rect:
         serializedVersion: 2
-        x: 98
-        y: 172
-        width: 34
-        height: 56
+        x: 80
+        y: 160
+        width: 80
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,10 +213,10 @@ TextureImporter:
       name: wizard idle_5
       rect:
         serializedVersion: 2
-        x: 178
-        y: 172
-        width: 34
-        height: 56
+        x: 160
+        y: 160
+        width: 80
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,10 +234,10 @@ TextureImporter:
       name: wizard idle_6
       rect:
         serializedVersion: 2
-        x: 17
-        y: 93
-        width: 35
-        height: 55
+        x: 0
+        y: 80
+        width: 80
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -255,10 +255,10 @@ TextureImporter:
       name: wizard idle_7
       rect:
         serializedVersion: 2
-        x: 17
-        y: 126
-        width: 5
-        height: 9
+        x: 80
+        y: 80
+        width: 80
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -276,10 +276,10 @@ TextureImporter:
       name: wizard idle_8
       rect:
         serializedVersion: 2
-        x: 97
-        y: 91
-        width: 35
-        height: 56
+        x: 160
+        y: 80
+        width: 80
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -297,10 +297,10 @@ TextureImporter:
       name: wizard idle_9
       rect:
         serializedVersion: 2
-        x: 97
-        y: 126
-        width: 5
-        height: 8
+        x: 0
+        y: 0
+        width: 80
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -310,90 +310,6 @@ TextureImporter:
       bones: []
       spriteID: 38fd6e96685d9d543b0cda52b3e043fe
       internalID: -894297923
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wizard idle_10
-      rect:
-        serializedVersion: 2
-        x: 177
-        y: 92
-        width: 35
-        height: 56
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3fc471478d294d444a1d0c696c2c1159
-      internalID: -1716975363
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wizard idle_11
-      rect:
-        serializedVersion: 2
-        x: 177
-        y: 126
-        width: 5
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c956d2174c8102b41bc6497226967d2b
-      internalID: -861785209
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wizard idle_12
-      rect:
-        serializedVersion: 2
-        x: 17
-        y: 46
-        width: 5
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 989372615c852294b93b1eeaf491f20d
-      internalID: 1250624160
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wizard idle_13
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 12
-        width: 34
-        height: 56
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eb8376f247eae0945a0ed8db6154af6c
-      internalID: -355037867
       vertices: []
       indices: 
       edges: []
@@ -409,16 +325,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      wizard idle_13: -355037867
       wizard idle_5: 1066530479
       wizard idle_9: -894297923
-      wizard idle_11: -861785209
       wizard idle_8: 2138209317
-      wizard idle_12: 1250624160
       wizard idle_3: 117027989
       wizard idle_2: -874916719
       wizard idle_1: 1334800398
-      wizard idle_10: -1716975363
       wizard idle_0: 1422450483
       wizard idle_6: -2102893423
       wizard idle_7: -201592746

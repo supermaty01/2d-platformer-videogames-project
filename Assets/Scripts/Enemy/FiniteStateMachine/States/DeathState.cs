@@ -7,7 +7,6 @@ public class DeathState : State
     protected override void OnEnterState(FiniteStateMachine fms)
     {
         fms.TriggerAnimation("Death");
-        SetStateDuration(0.833f);
     }
 
     protected override void OnUpdateState(FiniteStateMachine fms, float deltaTime)
@@ -16,6 +15,5 @@ public class DeathState : State
 
     protected override void OnExitState(FiniteStateMachine fms)
     {
-        fms.gameObject.SetActive(false);
     }
 }
