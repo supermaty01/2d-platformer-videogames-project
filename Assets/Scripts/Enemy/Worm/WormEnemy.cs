@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WormEnemy : EnemyConfig
 {
+    [Header("Projectile")]
     [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private Transform shootPoint;
     
@@ -11,17 +10,24 @@ public class WormEnemy : EnemyConfig
     {
         EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
         evt.OnAttackAction += SpawnProjectile;
+        evt.OnDestroyAction += DestroyWorm;
     }
 
     private void OnDestroy()
     {
         EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
         evt.OnAttackAction -= SpawnProjectile;
+        evt.OnDestroyAction += DestroyWorm;
     }
 
-    public void SpawnProjectile()
+    private void SpawnProjectile()
     {
         Projectile newProjectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
         newProjectile.SetDamage(attackDamage);
+    }
+    
+    private void DestroyWorm()
+    {
+        Destroy(gameObject);
     }
 }
