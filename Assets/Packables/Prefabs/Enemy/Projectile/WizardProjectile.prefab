@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8439194175362045305}
   - component: {fileID: 5408437864206034621}
   m_Layer: 0
-  m_Name: WizardBullet
+  m_Name: WizardProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
