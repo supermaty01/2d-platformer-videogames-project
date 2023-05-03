@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
         Walk,
         Charge,
         Jump,
+        JumpPeak,
         Fall,
         Land,
         Attack,
@@ -95,7 +96,11 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             isAired = true;
-            if (rb.velocity.y > 0)
+            if (Mathf.Abs(rb.velocity.y) < 5)
+            {
+                playerState = PlayerState.JumpPeak;
+            }  
+            else if (rb.velocity.y > 0)
             {
                 playerState = PlayerState.Jump;
             }
@@ -121,6 +126,10 @@ public class PlayerMovement : MonoBehaviour
         else if (playerState == PlayerState.Jump)
         {
             animator.Play("FlyingUp");
+        }
+        else if (playerState == PlayerState.JumpPeak)
+        {
+            animator.Play("JumpingReload");
         }
         else if (playerState == PlayerState.Fall)
         {
