@@ -48,9 +48,13 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
 
-        if (playerState != PlayerState.Charge)
+        if (playerState != PlayerState.Charge && playerState != PlayerState.Attack && playerState != PlayerState.Defend)
         {
             rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
     }
 
@@ -63,12 +67,14 @@ public class PlayerMovement : MonoBehaviour
             
             if (!jumping)
             {
-                if (isAired)
+                var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
+                
+                if (isAired || (currentAnimation.IsName("Landing") && currentAnimation.normalizedTime < 1f))
                 {
                     playerState = PlayerState.Land;
                     isAired = false;
                 }
-                else if (Input.GetMouseButtonDown(0))
+                else if (Input.GetMouseButtonDown(0) || (currentAnimation.IsName("Attack") && currentAnimation.normalizedTime < 1f))
                 {
                     playerState = PlayerState.Attack;
                 }
@@ -104,12 +110,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void PlayAnimation()
     {
-        var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        
-        if ((currentAnimation.IsName("Attack") || currentAnimation.IsName("Landing")) && currentAnimation.normalizedTime < 1f)
-        {
-            return;
-        }
         if (playerState == PlayerState.Walk)
         {
             animator.Play("Walking");
