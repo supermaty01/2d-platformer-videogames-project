@@ -41,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        isGrounded = IsGrounded();
         float moveInput = Input.GetAxisRaw("Horizontal");
 
         if ((moveInput > 0 && !facingRight) || (moveInput < 0 && facingRight))
@@ -53,11 +52,12 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         }
-        
-        var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        
+    }
+
+    private void Update()
+    {
         // Actualizar las animaciones según el estado del jugador cuando está en el suelo
-        if (isGrounded)
+        if (IsGrounded())
         {
             var jumping = CheckJump();
             
@@ -68,7 +68,15 @@ public class PlayerMovement : MonoBehaviour
                     playerState = PlayerState.Land;
                     isAired = false;
                 }
-                else if (moveInput != 0)
+                else if (Input.GetMouseButtonDown(0))
+                {
+                    playerState = PlayerState.Attack;
+                }
+                else if (Input.GetMouseButton(1))
+                {
+                    playerState = PlayerState.Defend;
+                }
+                else if (rb.velocity.x != 0)
                 {
                     playerState = PlayerState.Walk;
                 }
@@ -92,9 +100,16 @@ public class PlayerMovement : MonoBehaviour
         }
         PlayAnimation();
     }
-    
+
+
     private void PlayAnimation()
     {
+        var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
+        
+        if ((currentAnimation.IsName("Attack") || currentAnimation.IsName("Landing")) && currentAnimation.normalizedTime < 1f)
+        {
+            return;
+        }
         if (playerState == PlayerState.Walk)
         {
             animator.Play("Walking");
@@ -119,6 +134,14 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.Play("Preparation");
         }
+        else if (playerState == PlayerState.Attack)
+        {
+            animator.Play("Attack");
+        }
+        else if (playerState == PlayerState.Defend)
+        {
+            animator.Play("Defend");
+        }
     }
 
     private bool CheckJump()
@@ -128,8 +151,6 @@ public class PlayerMovement : MonoBehaviour
         {
             playerState = PlayerState.Charge;
             chargeTime += Time.deltaTime;
-            Debug.Log("Cargando salto");
-            Debug.Log(chargeTime);
             return true;
         }
         if (playerState == PlayerState.Charge)
