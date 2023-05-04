@@ -29,7 +29,8 @@ public class PlayerMovement : MonoBehaviour
         Land,
         Attack,
         Defend,
-        Dead
+        Dead,
+        Hurt
     }
     
     private PlayerState _playerState;
@@ -67,7 +68,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         if (_playerState == PlayerState.Dead)
+        {
+            PlayAnimation();
+            return;
+        }
+        
+        if (_playerState == PlayerState.Hurt && !currentAnimation.IsName("TakeHit"))
         {
             PlayAnimation();
             return;
@@ -79,12 +87,14 @@ public class PlayerMovement : MonoBehaviour
             
             if (!jumping)
             {
-                var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-                
                 if (_isAired || (currentAnimation.IsName("Landing") && currentAnimation.normalizedTime < 1f))
                 {
                     _playerState = PlayerState.Land;
                     _isAired = false;
+                }
+                else if (_playerState == PlayerState.Hurt && currentAnimation.IsName("TakeHit") && currentAnimation.normalizedTime < 1f)
+                {
+                    _playerState = PlayerState.Hurt;
                 }
                 else if (Input.GetMouseButtonDown(0) || (currentAnimation.IsName("Attack") && currentAnimation.normalizedTime < 1f))
                 {
@@ -165,6 +175,10 @@ public class PlayerMovement : MonoBehaviour
         else if (_playerState == PlayerState.Dead)
         {
             animator.Play("Death");
+        }
+        else if (_playerState == PlayerState.Hurt)
+        {
+            animator.Play("TakeHit");
         }
     }
 

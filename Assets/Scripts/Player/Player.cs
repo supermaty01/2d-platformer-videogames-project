@@ -17,4 +17,11 @@ public class Player : LivingEntity
         playerMovement.SetPlayerState(PlayerMovement.PlayerState.Dead);
         // gameObject.SetActive(false);
     }
+    
+    protected override void OnTakeDamage()
+    {
+        base.OnTakeDamage();
+        playerMovement.SetPlayerState(PlayerMovement.PlayerState.Hurt);
+        // gameObject.SetActive(false);
+    }
 }

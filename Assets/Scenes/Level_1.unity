@@ -854,7 +854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd4a6abfe3e4e29ba8f4f5f60beeb14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TotalHealthPoints>k__BackingField: 2
+  <TotalHealthPoints>k__BackingField: 5
 --- !u!1 &1112833925
 GameObject:
   m_ObjectHideFlags: 0
