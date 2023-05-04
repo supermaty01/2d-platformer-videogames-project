@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 3f; // velocidad horizontal del personaje
-    public float jumpForce = 5f; // fuerza vertical del salto
-    public float maxChargeTime = 1.5f; // tiempo máximo de carga del salto
+    public float jumpForce = 7f; // fuerza vertical del salto
+    public float maxChargeTime = 0.8f; // tiempo máximo de carga del salto
     public LayerMask ground; // capas que se consideran suelo
     public Animator animator; // componente Animator del personaje
     private bool facingRight = true; // indica si el personaje mira hacia la derecha
@@ -15,13 +16,28 @@ public class PlayerController : MonoBehaviour
     public Vector3 boxSize;
     
     private float chargeTime;
-    private bool isCharging;
-    private bool hasJumped;
+    private bool isAired;
+    private bool isGrounded;
+    
+    public enum PlayerState
+    {
+        Idle,
+        Walk,
+        Charge,
+        Jump,
+        JumpPeak,
+        Fall,
+        Land,
+        Attack,
+        Defend,
+    }
+    
+    public PlayerState playerState;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void FixedUpdate()
@@ -33,97 +49,144 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
 
-        if (!isCharging)
+        if (playerState != PlayerState.Charge && playerState != PlayerState.Attack && playerState != PlayerState.Defend)
         {
             rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         }
-        
-        animator.SetFloat("SpeedY", rb.velocity.y);
-        animator.SetFloat("SpeedX", Mathf.Abs(rb.velocity.x));
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+    }
 
-        var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        
+    private void Update()
+    {
         // Actualizar las animaciones según el estado del jugador cuando está en el suelo
         if (IsGrounded())
         {
-            animator.SetBool("IsGrounded", true);
+            var jumping = CheckJump();
             
-            // Verificar si el jugador está cargando el salto
-            if (Input.GetKey(KeyCode.Space))
+            if (!jumping)
             {
-                isCharging = true;
-            }
-            else if (!Input.GetKey(KeyCode.Space) && isCharging)
-            {
-                isCharging = false;
-                Jump();
-                return;
-            }
-        
-            // Actualizar el tiempo de carga del salto
-            if (isCharging)
-            {
-                chargeTime += Time.deltaTime;
-            }
-            
-            
-            if (isCharging)
-            {
-                animator.Play("Preparation");
-            }
-            else if (hasJumped)
-            {
-                animator.Play("Landing");
-                hasJumped = false;
-            }
-            else if (moveInput != 0)
-            {
+                var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
                 
-                animator.SetFloat("SpeedY", 0);
-                animator.SetFloat("SpeedX", Mathf.Abs(rb.velocity.x));
-                if (currentAnimation.IsName("Landing") && currentAnimation.normalizedTime < 1.0f)
+                if (isAired || (currentAnimation.IsName("Landing") && currentAnimation.normalizedTime < 1f))
                 {
-                    Debug.Log("Animation not finished");
-                    return;
+                    playerState = PlayerState.Land;
+                    isAired = false;
                 }
-                animator.Play("Walking");
-            }
-            else
-            {
-                if (currentAnimation.IsName("Landing") && currentAnimation.normalizedTime < 1.0f)
+                else if (Input.GetMouseButtonDown(0) || (currentAnimation.IsName("Attack") && currentAnimation.normalizedTime < 1f))
                 {
-                    Debug.Log("Animation not finished");
-                    return;
+                    playerState = PlayerState.Attack;
                 }
-                animator.Play("Idle");
+                else if (Input.GetMouseButton(1))
+                {
+                    playerState = PlayerState.Defend;
+                }
+                else if (rb.velocity.x != 0)
+                {
+                    playerState = PlayerState.Walk;
+                }
+                else
+                {
+                    playerState = PlayerState.Idle;
+                }
             }
         }
         else
         {
-            animator.SetBool("IsGrounded", false);
+            isAired = true;
+            if (Mathf.Abs(rb.velocity.y) < 5)
+            {
+                playerState = PlayerState.JumpPeak;
+            }  
+            else if (rb.velocity.y > 0)
+            {
+                playerState = PlayerState.Jump;
+            }
+            else
+            {
+                playerState = PlayerState.Fall;
+            }
         }
+        PlayAnimation();
+    }
+
+
+    private void PlayAnimation()
+    {
+        if (playerState == PlayerState.Walk)
+        {
+            animator.Play("Walking");
+        }
+        else if (playerState == PlayerState.Idle)
+        {
+            animator.Play("Idle");
+        }
+        else if (playerState == PlayerState.Jump)
+        {
+            animator.Play("FlyingUp");
+        }
+        else if (playerState == PlayerState.JumpPeak)
+        {
+            animator.Play("JumpingReload");
+        }
+        else if (playerState == PlayerState.Fall)
+        {
+            animator.Play("Falling");
+        }
+        else if (playerState == PlayerState.Land)
+        {
+            animator.Play("Landing");
+        }
+        else if (playerState == PlayerState.Charge)
+        {
+            animator.Play("Preparation");
+        }
+        else if (playerState == PlayerState.Attack)
+        {
+            animator.Play("Attack");
+        }
+        else if (playerState == PlayerState.Defend)
+        {
+            animator.Play("Defend");
+        }
+    }
+
+    private bool CheckJump()
+    {
+        // Verificar si el jugador está cargando el salto
+        if (Input.GetKey(KeyCode.Space))
+        {
+            playerState = PlayerState.Charge;
+            chargeTime += Time.deltaTime;
+            return true;
+        }
+        if (playerState == PlayerState.Charge)
+        {
+            Jump();
+            return true;
+        }
+        return false;
     }
     
     private void Jump()
     {
-        if (IsGrounded())
+        playerState = PlayerState.Jump;
+        // Calcular la fuerza del salto
+        var jumpPower = jumpForce;
+        if (chargeTime > 0)
         {
-            // Calcular la fuerza del salto
-            float jumpPower = jumpForce;
-            if (chargeTime > 0)
+            if (chargeTime > maxChargeTime)
             {
-                if (chargeTime > maxChargeTime)
-                {
-                    chargeTime = maxChargeTime;
-                }
-                jumpPower += (jumpForce * chargeTime);
+                chargeTime = maxChargeTime;
             }
-
-            // Aplicar la fuerza del salto al jugador
-            rb.velocity = new Vector2(rb.velocity.x, jumpPower);
-            chargeTime = 0f;
-            hasJumped = true;
+            jumpPower += (jumpForce * chargeTime);
         }
+
+        // Aplicar la fuerza del salto al jugador
+        rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+        chargeTime = 0f;
     }
 
     private void Flip()
@@ -131,7 +194,7 @@ public class PlayerController : MonoBehaviour
         facingRight = !facingRight;
         transform.Rotate(Vector3.up, 180f);
     }
-
+    
     private bool IsGrounded()
     {
         return Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, maxDistance, ground);
