@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _facingRight = true; // indica si el personaje está mirando a la derecha
     private float _chargeTime; // tiempo de carga del salto
     private bool _isAired; // indica si el personaje está en el aire
+    private Player _player; // componente Player del personaje 
 
     public enum PlayerState
     {
@@ -40,11 +41,17 @@ public class PlayerMovement : MonoBehaviour
     {
         _playerState = newState;
     }
+    
+    public PlayerState GetPlayerState()
+    {
+        return _playerState;
+    }
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
+        _player = GetComponent<Player>();
     }
 
     private void FixedUpdate()
@@ -98,6 +105,10 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else if (Input.GetMouseButtonDown(0) || (currentAnimation.IsName("Attack") && currentAnimation.normalizedTime < 1f))
                 {
+                    if (Input.GetMouseButtonDown(0) && !(currentAnimation.IsName("Attack")))
+                    {
+                        _player.Attack();
+                    }
                     _playerState = PlayerState.Attack;
                 }
                 else if (Input.GetMouseButton(1))

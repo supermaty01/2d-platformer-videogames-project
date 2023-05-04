@@ -18,12 +18,12 @@ public class FiniteStateMachine : MonoBehaviour
     private StateType _currentState;
     
     private void Start()
-        {
-            _config = GetComponent<EnemyConfig>();
+    {
+        _config = GetComponent<EnemyConfig>();
 
-            Bind(_config.fsmData);
-            ToState(_config.initialState);
-        }
+        Bind(_config.fsmData);
+        ToState(_config.initialState);
+    }
 
     private void Update()
     {
