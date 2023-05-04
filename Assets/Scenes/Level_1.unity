@@ -760,6 +760,7 @@ GameObject:
   - component: {fileID: 1107054939}
   - component: {fileID: 1107054938}
   - component: {fileID: 1107054940}
+  - component: {fileID: 1107054941}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -841,7 +842,19 @@ MonoBehaviour:
   animator: {fileID: 0}
   maxDistance: 1.47
   boxSize: {x: 0.7, y: 0.1, z: 0}
-  playerState: 0
+--- !u!114 &1107054941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107054931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd4a6abfe3e4e29ba8f4f5f60beeb14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <TotalHealthPoints>k__BackingField: 2
 --- !u!1 &1112833925
 GameObject:
   m_ObjectHideFlags: 0

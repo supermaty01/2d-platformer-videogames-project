@@ -3,22 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 3f; // velocidad horizontal del personaje
     public float jumpForce = 7f; // fuerza vertical del salto
     public float maxChargeTime = 0.8f; // tiempo máximo de carga del salto
     public LayerMask ground; // capas que se consideran suelo
     public Animator animator; // componente Animator del personaje
-    private bool facingRight = true; // indica si el personaje mira hacia la derecha
-    private Rigidbody2D rb; // componente Rigidbody2D del personaje
-    public float maxDistance;
-    public Vector3 boxSize;
+    public float maxDistance; // distancia máxima a la que se detecta el suelo
+    public Vector3 boxSize; // tamaño del boxcast que detecta el suelo
     
-    private float chargeTime;
-    private bool isAired;
-    private bool isGrounded;
-    
+    private Rigidbody2D _rb; // componente Rigidbody2D del personaje
+    private bool _facingRight = true; // indica si el personaje está mirando a la derecha
+    private float _chargeTime; // tiempo de carga del salto
+    private bool _isAired; // indica si el personaje está en el aire
+
     public enum PlayerState
     {
         Idle,
@@ -30,13 +29,20 @@ public class PlayerController : MonoBehaviour
         Land,
         Attack,
         Defend,
+        Dead
     }
     
-    public PlayerState playerState;
+    private PlayerState _playerState;
+    
+    // Create setter for playerState
+    public void SetPlayerState(PlayerState newState)
+    {
+        _playerState = newState;
+    }
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
     }
 
@@ -44,23 +50,28 @@ public class PlayerController : MonoBehaviour
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
 
-        if ((moveInput > 0 && !facingRight) || (moveInput < 0 && facingRight))
+        if ((moveInput > 0 && !_facingRight) || (moveInput < 0 && _facingRight))
         {
             Flip();
         }
 
-        if (playerState != PlayerState.Charge && playerState != PlayerState.Attack && playerState != PlayerState.Defend)
+        if (_playerState != PlayerState.Charge && _playerState != PlayerState.Attack && _playerState != PlayerState.Defend)
         {
-            rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+            _rb.velocity = new Vector2(moveInput * moveSpeed, _rb.velocity.y);
         }
         else
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            _rb.velocity = new Vector2(0, _rb.velocity.y);
         }
     }
 
     private void Update()
     {
+        if (_playerState == PlayerState.Dead)
+        {
+            PlayAnimation();
+            return;
+        }
         // Actualizar las animaciones según el estado del jugador cuando está en el suelo
         if (IsGrounded())
         {
@@ -70,43 +81,43 @@ public class PlayerController : MonoBehaviour
             {
                 var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
                 
-                if (isAired || (currentAnimation.IsName("Landing") && currentAnimation.normalizedTime < 1f))
+                if (_isAired || (currentAnimation.IsName("Landing") && currentAnimation.normalizedTime < 1f))
                 {
-                    playerState = PlayerState.Land;
-                    isAired = false;
+                    _playerState = PlayerState.Land;
+                    _isAired = false;
                 }
                 else if (Input.GetMouseButtonDown(0) || (currentAnimation.IsName("Attack") && currentAnimation.normalizedTime < 1f))
                 {
-                    playerState = PlayerState.Attack;
+                    _playerState = PlayerState.Attack;
                 }
                 else if (Input.GetMouseButton(1))
                 {
-                    playerState = PlayerState.Defend;
+                    _playerState = PlayerState.Defend;
                 }
-                else if (rb.velocity.x != 0)
+                else if (_rb.velocity.x != 0)
                 {
-                    playerState = PlayerState.Walk;
+                    _playerState = PlayerState.Walk;
                 }
                 else
                 {
-                    playerState = PlayerState.Idle;
+                    _playerState = PlayerState.Idle;
                 }
             }
         }
         else
         {
-            isAired = true;
-            if (Mathf.Abs(rb.velocity.y) < 5)
+            _isAired = true;
+            if (Mathf.Abs(_rb.velocity.y) < 5)
             {
-                playerState = PlayerState.JumpPeak;
+                _playerState = PlayerState.JumpPeak;
             }  
-            else if (rb.velocity.y > 0)
+            else if (_rb.velocity.y > 0)
             {
-                playerState = PlayerState.Jump;
+                _playerState = PlayerState.Jump;
             }
             else
             {
-                playerState = PlayerState.Fall;
+                _playerState = PlayerState.Fall;
             }
         }
         PlayAnimation();
@@ -115,41 +126,45 @@ public class PlayerController : MonoBehaviour
 
     private void PlayAnimation()
     {
-        if (playerState == PlayerState.Walk)
+        if (_playerState == PlayerState.Walk)
         {
             animator.Play("Walking");
         }
-        else if (playerState == PlayerState.Idle)
+        else if (_playerState == PlayerState.Idle)
         {
             animator.Play("Idle");
         }
-        else if (playerState == PlayerState.Jump)
+        else if (_playerState == PlayerState.Jump)
         {
             animator.Play("FlyingUp");
         }
-        else if (playerState == PlayerState.JumpPeak)
+        else if (_playerState == PlayerState.JumpPeak)
         {
             animator.Play("JumpingReload");
         }
-        else if (playerState == PlayerState.Fall)
+        else if (_playerState == PlayerState.Fall)
         {
             animator.Play("Falling");
         }
-        else if (playerState == PlayerState.Land)
+        else if (_playerState == PlayerState.Land)
         {
             animator.Play("Landing");
         }
-        else if (playerState == PlayerState.Charge)
+        else if (_playerState == PlayerState.Charge)
         {
             animator.Play("Preparation");
         }
-        else if (playerState == PlayerState.Attack)
+        else if (_playerState == PlayerState.Attack)
         {
             animator.Play("Attack");
         }
-        else if (playerState == PlayerState.Defend)
+        else if (_playerState == PlayerState.Defend)
         {
             animator.Play("Defend");
+        }
+        else if (_playerState == PlayerState.Dead)
+        {
+            animator.Play("Death");
         }
     }
 
@@ -158,11 +173,11 @@ public class PlayerController : MonoBehaviour
         // Verificar si el jugador está cargando el salto
         if (Input.GetKey(KeyCode.Space))
         {
-            playerState = PlayerState.Charge;
-            chargeTime += Time.deltaTime;
+            _playerState = PlayerState.Charge;
+            _chargeTime += Time.deltaTime;
             return true;
         }
-        if (playerState == PlayerState.Charge)
+        if (_playerState == PlayerState.Charge)
         {
             Jump();
             return true;
@@ -172,26 +187,26 @@ public class PlayerController : MonoBehaviour
     
     private void Jump()
     {
-        playerState = PlayerState.Jump;
+        _playerState = PlayerState.Jump;
         // Calcular la fuerza del salto
         var jumpPower = jumpForce;
-        if (chargeTime > 0)
+        if (_chargeTime > 0)
         {
-            if (chargeTime > maxChargeTime)
+            if (_chargeTime > maxChargeTime)
             {
-                chargeTime = maxChargeTime;
+                _chargeTime = maxChargeTime;
             }
-            jumpPower += (jumpForce * chargeTime);
+            jumpPower += (jumpForce * _chargeTime);
         }
 
         // Aplicar la fuerza del salto al jugador
-        rb.velocity = new Vector2(rb.velocity.x, jumpPower);
-        chargeTime = 0f;
+        _rb.velocity = new Vector2(_rb.velocity.x, jumpPower);
+        _chargeTime = 0f;
     }
 
     private void Flip()
     {
-        facingRight = !facingRight;
+        _facingRight = !_facingRight;
         transform.Rotate(Vector3.up, 180f);
     }
     
