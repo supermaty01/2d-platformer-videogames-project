@@ -5,6 +5,8 @@ public class WormEnemy : EnemyConfig
     [Header("Projectile")]
     [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private Transform shootPoint;
+
+    public int scoreValue = 10;
     
     new void Start()
     {
@@ -28,6 +30,7 @@ public class WormEnemy : EnemyConfig
     
     private void DestroyWorm()
     {
+        ScoreManager.instance.AddScore(scoreValue);
         Destroy(gameObject);
     }
 }

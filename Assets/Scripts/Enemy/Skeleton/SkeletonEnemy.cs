@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class SkeletonEnemy : EnemyConfig
 {
+    public int scoreValue = 10;
+    
     private new void Start()
     {
         base.Start();
@@ -25,6 +27,7 @@ public class SkeletonEnemy : EnemyConfig
 
     private void DestroySkeleton()
     {
+        ScoreManager.instance.AddScore(scoreValue);
         Destroy(gameObject);
     }
 }
