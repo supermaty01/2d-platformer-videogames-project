@@ -93,6 +93,7 @@ MonoBehaviour:
   finalPos: {x: 0, y: 0, z: 0}
   projectilePrefab: {fileID: 7558978002468839700, guid: 7cbfd4642bdcab14e8a85de5adbcf51c, type: 3}
   shootPoint: {fileID: 3925169430557092607}
+  coinPrefab: {fileID: 9186089812136409098, guid: 30ffa22ba216178409e6cccbd0fa49f0, type: 3}
 --- !u!70 &4404393290598546095
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

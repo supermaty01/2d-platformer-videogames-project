@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class SkeletonEnemy : EnemyConfig
 {
-    public int scoreValue = 10;
+    [Header("Score")]
+    [SerializeField] private Coin coinPrefab;
     
     private new void Start()
     {
@@ -27,7 +28,7 @@ public class SkeletonEnemy : EnemyConfig
 
     private void DestroySkeleton()
     {
-        ScoreManager.instance.AddScore(scoreValue);
+        Coin newCoin = Instantiate(coinPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }

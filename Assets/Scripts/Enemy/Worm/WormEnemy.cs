@@ -6,7 +6,8 @@ public class WormEnemy : EnemyConfig
     [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private Transform shootPoint;
 
-    public int scoreValue = 10;
+    [Header("Score")]
+    [SerializeField] private Coin coinPrefab;
     
     new void Start()
     {
@@ -30,7 +31,7 @@ public class WormEnemy : EnemyConfig
     
     private void DestroyWorm()
     {
-        ScoreManager.instance.AddScore(scoreValue);
+        Coin newCoin = Instantiate(coinPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }
