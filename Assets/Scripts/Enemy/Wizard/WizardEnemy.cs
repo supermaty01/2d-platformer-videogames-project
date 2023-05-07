@@ -7,7 +7,7 @@ public class WizardEnemy : EnemyConfig
     [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private Transform shootPoint;
     
-    public int scoreValue = 10;
+    
     new void Start()
     {
         EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
