@@ -20,12 +20,12 @@ public class ScoreManager : MonoBehaviour
 
     void Start()
     {
-        scoreText.text = "Score: " + score;
+        scoreText.text = score.ToString();
     }
 
     public void AddScore(int amount)
     {
         score += amount;
-        scoreText.text = "Score: " + score;
+        scoreText.text = score.ToString();
     }
 }
