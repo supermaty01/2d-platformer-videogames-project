@@ -63,7 +63,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9671c12936f1b2744a63fec9ee237546, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  <TotalHealthPoints>k__BackingField: 3
+  healthInitiated: 0
   attackRange: 10
   attackDuration: 1.5
   attackDamage: 1

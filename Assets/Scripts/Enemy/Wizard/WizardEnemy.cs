@@ -12,6 +12,7 @@ public class WizardEnemy : EnemyConfig
     
     new void Start()
     {
+        InitHealth();
         EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
         evt.OnAttackAction += SpawnBullet;
         evt.OnDestroyAction += DestroyWizard;
