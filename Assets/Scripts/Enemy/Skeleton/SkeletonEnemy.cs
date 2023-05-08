@@ -28,7 +28,7 @@ public class SkeletonEnemy : EnemyConfig
 
     private void DestroySkeleton()
     {
-        Coin newCoin = Instantiate(coinPrefab, transform.position, transform.rotation);
+        Coin newCoin = Instantiate(coinPrefab, transform.position + new Vector3(0,1,0), transform.rotation);
         Destroy(gameObject);
     }
 }

@@ -32,7 +32,7 @@ public class WizardEnemy : EnemyConfig
     
     private void DestroyWizard()
     {
-        Coin newCoin = Instantiate(coinPrefab, transform.position, transform.rotation);
+        Coin newCoin = Instantiate(coinPrefab, transform.position + new Vector3(0,1,0), transform.rotation);
         Destroy(gameObject);
     }
 }
