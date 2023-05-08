@@ -226,6 +226,7 @@ MonoBehaviour:
   finalPos: {x: 0, y: 0, z: 0}
   projectilePrefab: {fileID: 671267501440004930, guid: 0cbb920eef90ba04e98be070450ad8ee, type: 3}
   shootPoint: {fileID: 7794752492782506154}
+  coinPrefab: {fileID: 9186089812136409098, guid: 30ffa22ba216178409e6cccbd0fa49f0, type: 3}
 --- !u!114 &7794752494836393207
 MonoBehaviour:
   m_ObjectHideFlags: 0
