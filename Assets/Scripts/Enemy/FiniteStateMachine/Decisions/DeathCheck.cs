@@ -5,6 +5,6 @@ public class DeathCheck : StateDecision
 {
     public override bool Check(FiniteStateMachine fms)
     {
-        return fms.Config.health <= 0;
+        return fms.Config.HealthPoints <= 0;
     }
 }

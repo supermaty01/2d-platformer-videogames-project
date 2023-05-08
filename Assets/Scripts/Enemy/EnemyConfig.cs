@@ -1,9 +1,8 @@
 using System;
 using UnityEngine;
 
-public class EnemyConfig : MonoBehaviour
+public class EnemyConfig : LivingEntity
 {
-    public int health = 10;
 
     [Header("Attack")]
     public float attackRange = 5f;
@@ -25,8 +24,9 @@ public class EnemyConfig : MonoBehaviour
     {
         initialPos = initialPointTransform.position;
         finalPos = finalPointTransform.position;
+        InitHealth();
     }
-
+    
     protected void OnDrawGizmos()
     {
         Gizmos.color = new Color(1, 0, 0, 0.3f);
