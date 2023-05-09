@@ -60,6 +60,7 @@ public class Player : LivingEntity
     
     private void Destroy()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        UIManager.instance.ShowGameOverScreen();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
