@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxDistance; // distancia máxima a la que se detecta el suelo
     public Vector3 boxSize; // tamaño del boxcast que detecta el suelo
     
-    private Rigidbody2D _rb; // componente Rigidbody2D del personaje
+    public Rigidbody2D rb; // componente Rigidbody2D del personaje
     private bool _facingRight = true; // indica si el personaje está mirando a la derecha
     private float _chargeTime; // tiempo de carga del salto
     private bool _isAired; // indica si el personaje está en el aire
@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         _player = GetComponent<Player>();
     }
@@ -65,11 +65,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (_playerState != PlayerState.Charge && _playerState != PlayerState.Attack && _playerState != PlayerState.Defend)
         {
-            _rb.velocity = new Vector2(moveInput * moveSpeed, _rb.velocity.y);
+            rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         }
         else
         {
-            _rb.velocity = new Vector2(0, _rb.velocity.y);
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
     }
 
@@ -105,17 +105,13 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else if (Input.GetMouseButtonDown(0) || (currentAnimation.IsName("Attack") && currentAnimation.normalizedTime < 1f))
                 {
-                    if (Input.GetMouseButtonDown(0) && !(currentAnimation.IsName("Attack")))
-                    {
-                        _player.Attack();
-                    }
                     _playerState = PlayerState.Attack;
                 }
                 else if (Input.GetMouseButton(1))
                 {
                     _playerState = PlayerState.Defend;
                 }
-                else if (_rb.velocity.x != 0)
+                else if (rb.velocity.x != 0)
                 {
                     _playerState = PlayerState.Walk;
                 }
@@ -128,11 +124,11 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _isAired = true;
-            if (Mathf.Abs(_rb.velocity.y) < 5)
+            if (Mathf.Abs(rb.velocity.y) < 5)
             {
                 _playerState = PlayerState.JumpPeak;
             }  
-            else if (_rb.velocity.y > 0)
+            else if (rb.velocity.y > 0)
             {
                 _playerState = PlayerState.Jump;
             }
@@ -186,6 +182,7 @@ public class PlayerMovement : MonoBehaviour
         else if (_playerState == PlayerState.Dead)
         {
             animator.Play("Death");
+            enabled = false;
         }
         else if (_playerState == PlayerState.Hurt)
         {
@@ -225,7 +222,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Aplicar la fuerza del salto al jugador
-        _rb.velocity = new Vector2(_rb.velocity.x, jumpPower);
+        rb.velocity = new Vector2(rb.velocity.x, jumpPower);
         _chargeTime = 0f;
     }
 

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+
 public class Player : LivingEntity
 {
     [SerializeField]
@@ -16,13 +15,23 @@ public class Player : LivingEntity
     {
         playerMovement = GetComponent<PlayerMovement>();
         InitHealth();
+        
+        var evt = GetComponentInChildren<PlayerAnimationEvent>();
+        evt.OnAttackAction += Attack;
+        evt.OnDestroyAction += Destroy;
+    }
+    
+    private void OnDestroy()
+    {
+        var evt = GetComponentInChildren<PlayerAnimationEvent>();
+        evt.OnAttackAction -= Attack;
+        evt.OnDestroyAction -= Destroy;
     }
 
-    protected override void OnDeath()
+    protected override bool IsProtected()
     {
-        base.OnDeath();
-        playerMovement.SetPlayerState(PlayerMovement.PlayerState.Dead);
-        // gameObject.SetActive(false);
+        // TODO Verificar que solo bloquea por el lado que recibe el golpe
+        return playerMovement.GetPlayerState() == PlayerMovement.PlayerState.Defend;
     }
     
     protected override void OnTakeDamage()
@@ -31,13 +40,7 @@ public class Player : LivingEntity
         playerMovement.SetPlayerState(PlayerMovement.PlayerState.Hurt);
     }
     
-    protected override bool IsProtected()
-    {
-        // TODO Verificar que solo bloquea por el lado que recibe el golpe
-        return playerMovement.GetPlayerState() == PlayerMovement.PlayerState.Defend;
-    }
-    
-    public void Attack()
+    private void Attack()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right , attackRange, _targetLayerMask);
         if (hit.collider != null)
@@ -47,5 +50,16 @@ public class Player : LivingEntity
                 targetHit.TakeHit(1);
             }
         }
+    }
+
+    protected override void OnDeath()
+    {
+        base.OnDeath();
+        playerMovement.SetPlayerState(PlayerMovement.PlayerState.Dead);
+    }
+    
+    private void Destroy()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
