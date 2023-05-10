@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private float _chargeTime; // tiempo de carga del salto
     private bool _isAired; // indica si el personaje está en el aire
     private Player _player; // componente Player del personaje 
+    private Collider2D _collider; // componente Collider2D del personaje
 
     public enum PlayerState
     {
@@ -50,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
         animator = GetComponentInChildren<Animator>();
         _player = GetComponent<Player>();
     }
@@ -182,7 +184,7 @@ public class PlayerMovement : MonoBehaviour
         else if (_playerState == PlayerState.Dead)
         {
             animator.Play("Death");
-            enabled = false;
+            Death();
         }
         else if (_playerState == PlayerState.Hurt)
         {
@@ -235,5 +237,13 @@ public class PlayerMovement : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, maxDistance, ground);
+    }
+
+    private void Death()
+    {
+        _collider.enabled = false;
+        rb.gravityScale = 0;
+        rb.velocity = new Vector2(0, 0);
+        enabled = false;
     }
 }

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : LivingEntity
 {
@@ -61,6 +60,5 @@ public class Player : LivingEntity
     private void Destroy()
     {
         UIManager.instance.ShowGameOverScreen();
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -120,8 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22ac270add9be8248af0a482cbf314df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  attackRange: 2.5
+  <TotalHealthPoints>k__BackingField: 0
+  attackRange: 1.5
   attackDuration: 1.5
   attackDamage: 1
   initialPointTransform: {fileID: 1402680590737327609}
@@ -148,6 +148,7 @@ MonoBehaviour:
         Decision: {fileID: 11400000, guid: f5a397dbc10548e41a55098fc81a3f62, type: 2}
   initialPos: {x: 0, y: 0, z: 0}
   finalPos: {x: 0, y: 0, z: 0}
+  _fms: {fileID: 0}
 --- !u!1 &1402680589928875159
 GameObject:
   m_ObjectHideFlags: 0
