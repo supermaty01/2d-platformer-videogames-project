@@ -1,17 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ThwompEnemy : EnemyConfig
 {
+    private FiniteStateMachine _fms;
+    private Collider2D _collider2D;
+    
     new void Start()
     {
         base.Start();
-        
         EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
         evt.OnAttackAction += Attack;
 
         transform.position = initialPos;
+
+        _fms = GetComponent<FiniteStateMachine>();
+        _collider2D = GetComponent<Collider2D>();
     }
 
     private void OnDestroy()
@@ -20,9 +23,16 @@ public class ThwompEnemy : EnemyConfig
         evt.OnAttackAction -= Attack;
     }
 
-    public void Attack()
+    private void Attack()
     {
-        Debug.Log("Attack!");
+        var distance = Mathf.Abs(_fms.Target.position.x - transform.position.x);
+
+        if (!(distance <= 1)) return;
+
+        if(_fms.Target.TryGetComponent(out IDamageable targetHit))
+        {
+            targetHit.TakeHit(attackDamage);
+        }
     }
     
     new void OnDrawGizmos()

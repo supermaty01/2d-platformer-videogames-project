@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
 
-public class EnemyAnimationEvent : MonoBehaviour
+public class PlayerAnimationEvent : MonoBehaviour
 {
     public Action OnAttackAction;
     public Action OnDestroyAction;
-
+    
     public void AttackEvent()
     {
         OnAttackAction?.Invoke();

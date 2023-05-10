@@ -1,15 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class ScoreManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    public static ScoreManager instance;
-    
+    public static UIManager instance;
+
+    public GameObject scoreScreen;
     public TextMeshProUGUI scoreText;
+
+    public GameObject gameOverScreen;
+    
     
     int score = 0;
 
@@ -27,5 +27,11 @@ public class ScoreManager : MonoBehaviour
     {
         score += amount;
         scoreText.text = score.ToString();
+    }
+
+    public void ShowGameOverScreen()
+    {
+        scoreScreen.SetActive(false);
+        gameOverScreen.SetActive(true);
     }
 }
