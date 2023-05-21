@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7794752492733698876}
   - component: {fileID: 7794752492733698875}
   - component: {fileID: 7794752492733698877}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Worm_sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7794752492782506154}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 7794752494836393207}
   - component: {fileID: 7794752494836393209}
   - component: {fileID: 7932607382677199307}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Worm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6475b4450e128f547a54c5f3d5a4d219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TotalHealthPoints>k__BackingField: 2
+  <TotalHealthPoints>k__BackingField: 3
   attackRange: 10
   attackDuration: 1.5
   attackDamage: 1

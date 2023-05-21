@@ -6,6 +6,6 @@ public class UnderEnemyCheck : StateDecision
     public override bool Check(FiniteStateMachine fms)
     {
         float distance = Mathf.Abs(fms.Target.position.x - fms.transform.position.x);
-        return distance <= fms.Config.attackRange;
+        return distance <= fms.Config.attackRange && fms.Target.position.y < fms.transform.position.y;
     }
 }
