@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WizardEnemy : EnemyConfig
 {
+    [Header("Projectile")]
     [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private Transform shootPoint;
     
