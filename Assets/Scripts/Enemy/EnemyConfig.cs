@@ -4,18 +4,15 @@ using UnityEngine;
 public class EnemyConfig : LivingEntity
 {
 
-    [Header("Attack")]
-    public float attackRange = 5f;
+    [Header("Attack")] public float attackRange = 5f;
     public float attackDuration = 1.5f;
     public int attackDamage = 1;
-    
-    [Header("Move")] 
-    public Transform initialPointTransform;
+
+    [Header("Move")] public Transform initialPointTransform;
     public Transform finalPointTransform;
     public float speed = 1f;
 
-    [Header("Finite-State Machine")]
-    public StateType initialState;
+    [Header("Finite-State Machine")] public StateType initialState;
     public FSMData fsmData;
 
     public Vector3 initialPos, finalPos;
@@ -25,11 +22,5 @@ public class EnemyConfig : LivingEntity
         initialPos = initialPointTransform.position;
         finalPos = finalPointTransform.position;
         InitHealth();
-    }
-    
-    protected void OnDrawGizmos()
-    {
-        Gizmos.color = new Color(1, 0, 0, 0.3f);
-        Gizmos.DrawSphere(transform.position, attackRange);
     }
 }
