@@ -241,9 +241,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Death()
     {
-        _collider.enabled = false;
-        rb.gravityScale = 0;
-        rb.velocity = new Vector2(0, 0);
         enabled = false;
     }
 }
