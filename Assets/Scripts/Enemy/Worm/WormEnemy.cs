@@ -14,6 +14,7 @@ public class WormEnemy : EnemyConfig
         EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
         evt.OnAttackAction += SpawnProjectile;
         evt.OnDestroyAction += DestroyWorm;
+        Debug.Log('c');
     }
 
     private void OnDestroy()
@@ -21,6 +22,7 @@ public class WormEnemy : EnemyConfig
         EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
         evt.OnAttackAction -= SpawnProjectile;
         evt.OnDestroyAction -= DestroyWorm;
+        Debug.Log('b');
     }
 
     private void SpawnProjectile()
@@ -31,6 +33,7 @@ public class WormEnemy : EnemyConfig
     
     private void DestroyWorm()
     {
+        Debug.Log('a');
         Coin newCoin = Instantiate(coinPrefab, transform.position + new Vector3(0,1,0), transform.rotation);
         Destroy(gameObject);
     }
