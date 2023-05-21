@@ -33,6 +33,7 @@ public class WormEnemy : EnemyConfig
     private void DestroyWorm()
     {
         Coin newCoin = Instantiate(coinPrefab, transform.position + new Vector3(0,1,0), transform.rotation);
+        newCoin.DropCoin();
         Destroy(gameObject);
     }
 }

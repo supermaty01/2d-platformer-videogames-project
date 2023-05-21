@@ -388,7 +388,7 @@ PrefabInstance:
       objectReference: {fileID: 1107054932}
     - target: {fileID: 7794752494836393208, guid: 43d243a112bdc9142854bf4bac26533a, type: 3}
       propertyPath: <TotalHealthPoints>k__BackingField
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43d243a112bdc9142854bf4bac26533a, type: 3}
