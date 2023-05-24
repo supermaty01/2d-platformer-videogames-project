@@ -6,10 +6,10 @@ using UnityEngine;
 public class Spike : MonoBehaviour
 {
     [SerializeField]
-    private float _timeToDamage = 5f; 
+    private float timeToDamage = 5f; 
     
     [SerializeField]
-    private int _damage = 0;
+    private int damage = 0;
     
     [SerializeField]
     private float lastTimeDamageDealt = -Mathf.Infinity;
@@ -32,7 +32,6 @@ public class Spike : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Player touched the spike");
         if (other.gameObject.CompareTag("Player"))
         {
             _playerMovement.moveSpeed = slowSpeed;
@@ -44,11 +43,11 @@ public class Spike : MonoBehaviour
         if (!other.gameObject.CompareTag("Player"))
             return;
         
-        if (Time.time - lastTimeDamageDealt >= _timeToDamage)
+        if (Time.time - lastTimeDamageDealt >= timeToDamage)
         {
             if(other.gameObject.TryGetComponent(out IDamageable targetHit))
             {
-                targetHit.TakeHit(_damage);
+                targetHit.TakeHit(damage);
                 lastTimeDamageDealt = Time.time;
             }
         }
