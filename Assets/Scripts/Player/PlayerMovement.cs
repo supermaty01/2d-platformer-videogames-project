@@ -32,7 +32,8 @@ public class PlayerMovement : MonoBehaviour
         Attack,
         Defend,
         Dead,
-        Hurt
+        Hurt,
+        HurtFalling
     }
     
     private PlayerState _playerState;
@@ -58,6 +59,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
+        if (currentAnimation.IsName("FallingDamage") && currentAnimation.normalizedTime < 1f)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            return;
+        }
         float moveInput = Input.GetAxisRaw("Horizontal");
 
         if ((moveInput > 0 && !_facingRight) || (moveInput < 0 && _facingRight))
@@ -83,15 +90,21 @@ public class PlayerMovement : MonoBehaviour
             PlayAnimation();
             return;
         }
-        
-        if (_playerState == PlayerState.Hurt && !currentAnimation.IsName("TakeHit"))
+
+        if (currentAnimation.IsName("FallingDamage") && currentAnimation.normalizedTime < 1f)
         {
-            PlayAnimation();
             return;
         }
+        
         // Actualizar las animaciones según el estado del jugador cuando está en el suelo
         if (IsGrounded())
         {
+            if (_playerState == PlayerState.Hurt && !currentAnimation.IsName("TakeHit"))
+            {
+                PlayAnimation();
+                return;
+            }
+            
             var jumping = CheckJump();
             
             if (!jumping)
@@ -126,7 +139,12 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _isAired = true;
-            if (Mathf.Abs(rb.velocity.y) < 5)
+            
+            if (_playerState == PlayerState.Hurt || _playerState == PlayerState.HurtFalling)
+            {
+                _playerState = PlayerState.HurtFalling;
+            }
+            else if (Mathf.Abs(rb.velocity.y) < 5)
             {
                 _playerState = PlayerState.JumpPeak;
             }  
@@ -190,10 +208,18 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.Play("TakeHit");
         }
+        else if (_playerState == PlayerState.HurtFalling)
+        {
+            animator.Play("FallingDamage");
+        }
     }
 
     private bool CheckJump()
     {
+        if (_playerState == PlayerState.Dead || _playerState == PlayerState.Hurt)
+        {
+            return false;
+        }
         // Verificar si el jugador está cargando el salto
         if (Input.GetKey(KeyCode.Space))
         {
