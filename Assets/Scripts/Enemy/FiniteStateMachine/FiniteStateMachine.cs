@@ -3,26 +3,22 @@ using UnityEngine;
 
 public class FiniteStateMachine : MonoBehaviour
 {
-    [Space(10)]
-    [SerializeField] private Animator anim;
-    
-    [Space(10)]
-    [SerializeField] 
-    private Transform target;
-    private EnemyConfig _config;
-
-    public Transform Target => target;
-    public EnemyConfig Config => _config;
+    [Space(10)] [SerializeField] private Animator anim;
 
     private readonly Dictionary<StateType, State> _statesDic = new();
     private StateType _currentState;
-    
+
+    public Transform Target { get; private set; }
+
+    public EnemyConfig Config { get; private set; }
+
     private void Start()
     {
-        _config = GetComponent<EnemyConfig>();
+        Config = GetComponent<EnemyConfig>();
+        Target = GameManager.Instance.target;
 
-        Bind(_config.fsmData);
-        ToState(_config.initialState);
+        Bind(Config.fsmData);
+        ToState(Config.initialState);
     }
 
     private void Update()
@@ -41,20 +37,14 @@ public class FiniteStateMachine : MonoBehaviour
 
     public void ToState(StateType newState)
     {
-        if(newState == _currentState)
+        if (newState == _currentState)
             return;
-        
-        if (_statesDic.ContainsKey(_currentState))
-        {
-            _statesDic[_currentState].OnExit(this);
-        }
-        
+
+        if (_statesDic.ContainsKey(_currentState)) _statesDic[_currentState].OnExit(this);
+
         _currentState = newState;
 
-        if (_statesDic.ContainsKey(_currentState))
-        {
-            _statesDic[_currentState].OnEnter(this);
-        }
+        if (_statesDic.ContainsKey(_currentState)) _statesDic[_currentState].OnEnter(this);
     }
 
     private void Bind(FSMData fsmData)
@@ -62,14 +52,12 @@ public class FiniteStateMachine : MonoBehaviour
         foreach (var stateData in fsmData.States)
         {
             var state = State.CreateState(stateData.StateType);
-            if(state == null)
+            if (state == null)
                 continue;
 
             foreach (var transitionData in stateData.Transition)
-            {
                 state.AddTransition(transitionData.TargetState, transitionData.Decision);
-            }
-            
+
             _statesDic.Add(stateData.StateType, state);
         }
     }

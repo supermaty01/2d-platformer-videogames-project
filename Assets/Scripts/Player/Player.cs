@@ -12,6 +12,7 @@ public class Player : LivingEntity
 
     void Start()
     {
+        GameManager.Instance.target = transform;
         playerMovement = GetComponent<PlayerMovement>();
         InitHealth();
         
@@ -59,6 +60,6 @@ public class Player : LivingEntity
     
     private void Destroy()
     {
-        UIManager.instance.ShowGameOverScreen();
+        GameEvents.OnGameOverEvent?.Invoke();
     }
 }
