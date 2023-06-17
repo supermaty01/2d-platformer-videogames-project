@@ -2,23 +2,20 @@
 
 public class Player : LivingEntity
 {
-    
-    [Header("Projectile")]
-    [SerializeField] private PlayerProjectile projectilePrefab;
+    [Header("Projectile")] [SerializeField]
+    private Projectile projectilePrefab;
+
     [SerializeField] private Transform shootPoint;
-    
-    
-    [SerializeField]
-    private LayerMask _targetLayerMask;
-    
-    [SerializeField]
-    private float attackRange;
-    
-    [SerializeField]
-    private int windAttackDamage = 2;
-    
+
+
+    [SerializeField] private LayerMask _targetLayerMask;
+
+    [SerializeField] private float attackRange;
+
+    [SerializeField] private int windAttackDamage = 2;
+
     private PlayerMovement playerMovement;
-    
+
     private bool _hasWindSword = false;
 
     public enum PowerUp
@@ -38,12 +35,12 @@ public class Player : LivingEntity
     {
         playerMovement = GetComponent<PlayerMovement>();
         InitHealth();
-        
+
         var evt = GetComponentInChildren<PlayerAnimationEvent>();
         evt.OnAttackAction += Attack;
         evt.OnDestroyAction += Destroy;
     }
-    
+
     private void OnDestroy()
     {
         var evt = GetComponentInChildren<PlayerAnimationEvent>();
@@ -56,13 +53,13 @@ public class Player : LivingEntity
         // TODO Verificar que solo bloquea por el lado que recibe el golpe
         return playerMovement.GetPlayerState() == PlayerMovement.PlayerState.Defend;
     }
-    
+
     protected override void OnTakeDamage()
     {
         base.OnTakeDamage();
         playerMovement.SetPlayerState(PlayerMovement.PlayerState.Hurt);
     }
-    
+
     private void Attack()
     {
         if (_hasWindSword)
@@ -71,20 +68,20 @@ public class Player : LivingEntity
         }
         else
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right , attackRange, _targetLayerMask);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, attackRange, _targetLayerMask);
             if (hit.collider != null)
             {
-                if(hit.collider.TryGetComponent(out IDamageable targetHit))
+                if (hit.collider.TryGetComponent(out IDamageable targetHit))
                 {
                     targetHit.TakeHit(1);
                 }
             }
         }
     }
-    
+
     public void SpawnProjectile()
     {
-        PlayerProjectile newProjectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+        Projectile newProjectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
         newProjectile.SetDamage(windAttackDamage);
     }
 
@@ -93,7 +90,7 @@ public class Player : LivingEntity
         base.OnDeath();
         playerMovement.SetPlayerState(PlayerMovement.PlayerState.Dead);
     }
-    
+
     private void Destroy()
     {
         UIManager.instance.ShowGameOverScreen();

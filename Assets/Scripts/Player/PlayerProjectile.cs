@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class PlayerProjectile : Projectile
 {
-    
     protected override void Start()
     {
+        direction = Vector3.right;
         PlayerAnimationEvent evt = GetComponentInChildren<PlayerAnimationEvent>();
         evt.OnDestroyAction += DestroyProjectile;
     }
@@ -15,5 +15,4 @@ public class PlayerProjectile : Projectile
         PlayerAnimationEvent evt = GetComponentInChildren<PlayerAnimationEvent>();
         evt.OnAttackAction -= DestroyProjectile;
     }
-    
 }
