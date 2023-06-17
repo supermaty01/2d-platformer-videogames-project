@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public abstract class Projectile : MonoBehaviour
 {
     [SerializeField] private float lifeTime = 3;
     [SerializeField] private Animator anim;
@@ -13,24 +13,16 @@ public class Projectile : MonoBehaviour
     public void SetSpeed(float speed) => _speed = speed;
     public void SetDamage(int damage) => _damage = damage;
     
-    private void Start()
-    {
-        EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
-        evt.OnDestroyAction += DestroyProjectile;
-    }
+    protected abstract void Start();
 
-    private void OnDestroy()
-    {
-        EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
-        evt.OnAttackAction -= DestroyProjectile;
-    }
+    protected abstract void OnDestroy();
 
-    private void OnEnable()
+    protected void OnEnable()
     {
         _destructionTime = Time.time + lifeTime;
     }
     
-    private void Update()
+    protected void Update()
     {
         if (Time.time > _destructionTime )
         {
@@ -42,7 +34,7 @@ public class Projectile : MonoBehaviour
         transform.Translate(translation);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected void OnTriggerEnter2D(Collider2D other)
     {
         if(other.TryGetComponent(out IDamageable targetHit))
         {
@@ -52,7 +44,7 @@ public class Projectile : MonoBehaviour
         anim.SetTrigger("Impact");
     }
 
-    private void DestroyProjectile()
+    protected void DestroyProjectile()
     {
         Destroy(gameObject);
     }

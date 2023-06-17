@@ -64,7 +64,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <TotalHealthPoints>k__BackingField: 3
-  healthInitiated: 0
   attackRange: 10
   attackDuration: 1.5
   attackDamage: 1

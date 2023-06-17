@@ -2,11 +2,20 @@
 
 public class Player : LivingEntity
 {
+    
+    [Header("Projectile")]
+    [SerializeField] private PlayerProjectile projectilePrefab;
+    [SerializeField] private Transform shootPoint;
+    
+    
     [SerializeField]
     private LayerMask _targetLayerMask;
     
     [SerializeField]
     private float attackRange;
+    
+    [SerializeField]
+    private int windAttackDamage = 2;
     
     private PlayerMovement playerMovement;
     
@@ -56,14 +65,27 @@ public class Player : LivingEntity
     
     private void Attack()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right , attackRange, _targetLayerMask);
-        if (hit.collider != null)
+        if (_hasWindSword)
         {
-            if(hit.collider.TryGetComponent(out IDamageable targetHit))
+            SpawnProjectile();
+        }
+        else
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right , attackRange, _targetLayerMask);
+            if (hit.collider != null)
             {
-                targetHit.TakeHit(1);
+                if(hit.collider.TryGetComponent(out IDamageable targetHit))
+                {
+                    targetHit.TakeHit(1);
+                }
             }
         }
+    }
+    
+    public void SpawnProjectile()
+    {
+        PlayerProjectile newProjectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+        newProjectile.SetDamage(windAttackDamage);
     }
 
     protected override void OnDeath()

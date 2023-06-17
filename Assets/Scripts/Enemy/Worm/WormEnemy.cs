@@ -3,7 +3,7 @@ using UnityEngine;
 public class WormEnemy : EnemyConfig
 {
     [Header("Projectile")]
-    [SerializeField] private Projectile projectilePrefab;
+    [SerializeField] private EnemyProjectile projectilePrefab;
     [SerializeField] private Transform shootPoint;
 
     [Header("Score")]
@@ -26,7 +26,7 @@ public class WormEnemy : EnemyConfig
 
     private void SpawnProjectile()
     {
-        Projectile newProjectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+        EnemyProjectile newProjectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
         newProjectile.SetDamage(attackDamage);
     }
     
