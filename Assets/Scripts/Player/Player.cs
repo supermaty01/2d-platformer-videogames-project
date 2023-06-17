@@ -60,6 +60,6 @@ public class Player : LivingEntity
     
     private void Destroy()
     {
-        UIManager.instance.ShowGameOverScreen();
+        GameEvents.OnGameOverEvent?.Invoke();
     }
 }

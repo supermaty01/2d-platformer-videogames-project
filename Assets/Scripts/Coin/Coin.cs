@@ -18,7 +18,7 @@ public class Coin : MonoBehaviour
         {
             if ( !_canCollected) return;
             
-            UIManager.instance.AddScore(scoreValue);
+            GameEvents.OnPlayerScoreChangeEvent?.Invoke(scoreValue);
             Destroy(gameObject);
         }
         else

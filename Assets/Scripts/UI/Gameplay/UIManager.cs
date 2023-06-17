@@ -3,33 +3,35 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager instance;
-
     public GameObject scoreScreen;
     public TextMeshProUGUI scoreText;
 
     public GameObject gameOverScreen;
-    
-    
-    int score = 0;
 
-    private void Awake()
+
+    private int _score;
+
+    private void Start()
     {
-        instance = this;
+        GameEvents.OnPlayerScoreChangeEvent += AddScore;
+        GameEvents.OnGameOverEvent += ShowGameOverScreen;
+
+        scoreText.text = _score.ToString();
     }
 
-    void Start()
+    private void OnDestroy()
     {
-        scoreText.text = score.ToString();
+        GameEvents.OnPlayerScoreChangeEvent -= AddScore;
+        GameEvents.OnGameOverEvent -= ShowGameOverScreen;
     }
 
-    public void AddScore(int amount)
+    private void AddScore(int points)
     {
-        score += amount;
-        scoreText.text = score.ToString();
+        _score += points;
+        scoreText.text = _score.ToString();
     }
 
-    public void ShowGameOverScreen()
+    private void ShowGameOverScreen()
     {
         scoreScreen.SetActive(false);
         gameOverScreen.SetActive(true);

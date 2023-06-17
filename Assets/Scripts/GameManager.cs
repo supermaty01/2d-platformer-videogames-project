@@ -38,6 +38,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadGameplayAsyncScene("Level1"));
     }
 
+    public void RetryLevel()
+    {
+        StartCoroutine(LoadGameplayAsyncScene(SceneManager.GetActiveScene().name));
+    }
+
     private IEnumerator LoadGameplayAsyncScene(string scene)
     {
         var asyncLoad = SceneManager.LoadSceneAsync(scene);
