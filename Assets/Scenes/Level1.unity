@@ -1443,6 +1443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1063052007}
   - component: {fileID: 1063052008}
+  - component: {fileID: 1063052009}
   m_Layer: 5
   m_Name: LifeCounter
   m_TagString: Untagged
@@ -1501,6 +1502,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1063052009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1063052006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5cf857608fdc8c4cb90eb050398e755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1101610378
 GameObject:
   m_ObjectHideFlags: 0
