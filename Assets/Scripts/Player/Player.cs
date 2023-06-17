@@ -50,6 +50,7 @@ public class Player : LivingEntity
                 targetHit.TakeHit(1);
             }
         }
+        AudioManager.Instance.PlaySound2D("PlayerAttack");
     }
 
     protected override void OnDeath()

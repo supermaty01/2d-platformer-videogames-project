@@ -6,6 +6,14 @@ public class ThwompEnemy : EnemyConfig
     {
         base.Start();
         transform.position = initialPos;
+        EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
+        evt.OnAttackAction += AttackSound;
+    }
+    
+    private void OnDestroy()
+    {
+        EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
+        evt.OnAttackAction -= AttackSound;
     }
 
     public void OnTriggerEnter2D(Collider2D other)
@@ -14,5 +22,10 @@ public class ThwompEnemy : EnemyConfig
         {
             targetHit.TakeHit(attackDamage);
         }
+    }
+    
+    public void AttackSound()
+    {
+        AudioManager.Instance.PlaySound2D("ThwompAttack");
     }
 }

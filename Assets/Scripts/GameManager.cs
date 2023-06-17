@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene("StartScreen");
+        AudioManager.Instance.PlayMusic(AudioMusicType.Menu);
     }
 
     public void StarGame()
@@ -50,5 +51,7 @@ public class GameManager : MonoBehaviour
         while (!asyncLoad.isDone) yield return null;
 
         yield return new WaitForSeconds(1f);
+        
+        AudioManager.Instance.PlayMusic(AudioMusicType.Gameplay);
     }
 }

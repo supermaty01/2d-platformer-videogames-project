@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d47f0724641a0a648a95ac1ea254e09f, type: 3}
+  m_Name: Library
+  m_EditorClassIdentifier: 
+  music:
+  - MusicType: 0
+    Clip: {fileID: 8300000, guid: 72141df529d3e984fb84aa9097d4a134, type: 3}
+  - MusicType: 1
+    Clip: {fileID: 8300000, guid: ba45d79c73386ef4cb8eac19c14ca6a0, type: 3}
+  soundGroups:
+  - groupID: WormAttack
+    clips:
+    - {fileID: 8300000, guid: bd9682856fb9dee458196997aa146717, type: 3}
+  - groupID: ThwompAttack
+    clips:
+    - {fileID: 8300000, guid: 2336b2dc8fcbc2d408ff4e8e5a7b1ef1, type: 3}
+  - groupID: PlayerAttack
+    clips:
+    - {fileID: 8300000, guid: 20e539c124f05f74da360d6163f31624, type: 3}
+  - groupID: PlayerPowerUp
+    clips:
+    - {fileID: 8300000, guid: 50b3b0c07130c694ebacc60769d873b4, type: 3}

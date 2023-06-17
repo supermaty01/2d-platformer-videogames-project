@@ -28,6 +28,7 @@ public class WormEnemy : EnemyConfig
     {
         Projectile newProjectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
         newProjectile.SetDamage(attackDamage);
+        AudioManager.Instance.PlaySound2D("WormAttack");
     }
     
     private void DestroyWorm()
