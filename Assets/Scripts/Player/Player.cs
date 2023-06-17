@@ -37,6 +37,7 @@ public class Player : LivingEntity
     protected override void OnTakeDamage()
     {
         base.OnTakeDamage();
+        GameEvents.OnPlayerHealthChangeEvent?.Invoke(HealthPoints);
         playerMovement.SetPlayerState(PlayerMovement.PlayerState.Hurt);
     }
     
