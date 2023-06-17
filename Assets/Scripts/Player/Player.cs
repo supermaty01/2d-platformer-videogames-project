@@ -9,6 +9,21 @@ public class Player : LivingEntity
     private float attackRange;
     
     private PlayerMovement playerMovement;
+    
+    private bool _hasWindSword = false;
+
+    public enum PowerUp
+    {
+        WindSword,
+    }
+
+    public void ActivatePowerUp(PowerUp powerUp)
+    {
+        if (powerUp == PowerUp.WindSword)
+        {
+            _hasWindSword = true;
+        }
+    }
 
     void Start()
     {

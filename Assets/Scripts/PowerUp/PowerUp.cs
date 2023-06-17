@@ -7,7 +7,7 @@ public abstract class PowerUp : MonoBehaviour
     
     private Rigidbody2D _rb;
 
-    void Update()
+    private void Update()
     {
         transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f);
     }
@@ -24,7 +24,7 @@ public abstract class PowerUp : MonoBehaviour
             if(other.TryGetComponent(out PlayerMovement playerMovement))
             {
                 playerMovement.SetPlayerState(PlayerMovement.PlayerState.PowerUp);
-                ActivatePowerUp();
+                ActivatePowerUp(other.GetComponent<Player>());
             }
             Destroy(gameObject);
         }
@@ -35,7 +35,7 @@ public abstract class PowerUp : MonoBehaviour
         }
     }
 
-    protected abstract void ActivatePowerUp();
+    protected abstract void ActivatePowerUp(Player player);
 
 
 }
