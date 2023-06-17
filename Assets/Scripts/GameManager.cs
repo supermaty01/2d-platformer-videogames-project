@@ -32,13 +32,13 @@ public class GameManager : MonoBehaviour
 
     public static void MainMenu()
     {
-        SceneManager.LoadScene("Start Screen");
+        SceneManager.LoadScene("StartScreen");
     }
 
     public void StarGame()
     {
         _score = 0;
-        StartCoroutine(LoadGameplayAsyncScene("Gameplay"));
+        StartCoroutine(LoadGameplayAsyncScene("Level1"));
     }
 
     private static IEnumerator LoadGameplayAsyncScene(string scene)
