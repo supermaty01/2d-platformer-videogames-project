@@ -225,4 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6787130084abdef46a7f30fc0a1b594f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb: {fileID: 9213659870710967706}
+  fallDelay: 1
+  fallSpeed: 1
+  destroyDelay: 2
+  collider: {fileID: 6025814050672027847}
