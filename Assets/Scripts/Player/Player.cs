@@ -12,6 +12,7 @@ public class Player : LivingEntity
 
     void Start()
     {
+        GameManager.Instance.target = transform;
         playerMovement = GetComponent<PlayerMovement>();
         InitHealth();
         

@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    private int _score;
+    public int score;
+    public Transform target;
 
     private void Awake()
     {
@@ -26,34 +27,23 @@ public class GameManager : MonoBehaviour
         MainMenu();
     }
 
-    private void OnDestroy()
-    {
-    }
-
-    public static void MainMenu()
+    public void MainMenu()
     {
         SceneManager.LoadScene("StartScreen");
     }
 
     public void StarGame()
     {
-        _score = 0;
+        score = 0;
         StartCoroutine(LoadGameplayAsyncScene("Level1"));
     }
 
-    private static IEnumerator LoadGameplayAsyncScene(string scene)
+    private IEnumerator LoadGameplayAsyncScene(string scene)
     {
         var asyncLoad = SceneManager.LoadSceneAsync(scene);
 
         while (!asyncLoad.isDone) yield return null;
 
         yield return new WaitForSeconds(1f);
-
-        GameEvents.OnStartGameEvent?.Invoke();
-    }
-    
-    public int GetScore()
-    {
-        return _score;
     }
 }
