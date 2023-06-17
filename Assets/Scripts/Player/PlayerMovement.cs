@@ -33,7 +33,8 @@ public class PlayerMovement : MonoBehaviour
         Defend,
         Dead,
         Hurt,
-        HurtFalling
+        HurtFalling,
+        PowerUp
     }
     
     private PlayerState _playerState;
@@ -60,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        if (currentAnimation.IsName("FallingDamage") && currentAnimation.normalizedTime < 1f)
+        if ((currentAnimation.IsName("FallingDamage") || currentAnimation.IsName("PowerUp")) && currentAnimation.normalizedTime < 1f)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
             return;
@@ -93,6 +94,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (currentAnimation.IsName("FallingDamage") && currentAnimation.normalizedTime < 1f)
         {
+            return;
+        }
+        
+        if ((currentAnimation.IsName("PowerUp") || _playerState == PlayerState.PowerUp )&& currentAnimation.normalizedTime < 1f)
+        {
+            PlayAnimation();
             return;
         }
         
@@ -211,6 +218,10 @@ public class PlayerMovement : MonoBehaviour
         else if (_playerState == PlayerState.HurtFalling)
         {
             animator.Play("FallingDamage");
+        }
+        else if (_playerState == PlayerState.PowerUp)
+        {
+            animator.Play("PowerUp");
         }
     }
 
