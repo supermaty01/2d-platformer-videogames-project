@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
 
     private void ShowFinishScreen()
     {
-        GameManager.Instance.score = _score;
+        GameManager.Instance.score += _score;
         GameManager.Instance.target.gameObject.SetActive(false);
 
         scoreScreen.SetActive(false);
