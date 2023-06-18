@@ -43,7 +43,22 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadGameplayAsyncScene(SceneManager.GetActiveScene().name));
     }
 
+    public void NextLevel()
+    {
+        var currentIndexScene = SceneManager.GetActiveScene().buildIndex;
+        StartCoroutine(LoadGameplayAsyncScene(currentIndexScene + 1));
+    }
+
     private IEnumerator LoadGameplayAsyncScene(string scene)
+    {
+        var asyncLoad = SceneManager.LoadSceneAsync(scene);
+
+        while (!asyncLoad.isDone) yield return null;
+
+        yield return new WaitForSeconds(1f);
+    }
+    
+    private IEnumerator LoadGameplayAsyncScene(int scene)
     {
         var asyncLoad = SceneManager.LoadSceneAsync(scene);
 
