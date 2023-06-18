@@ -38,6 +38,7 @@ public class Player : LivingEntity
     {
         base.OnTakeDamage();
         playerMovement.SetPlayerState(PlayerMovement.PlayerState.Hurt);
+        AudioManager.Instance.PlaySound2D("PlayerTakeDamage");
     }
     
     private void Attack()
@@ -57,6 +58,7 @@ public class Player : LivingEntity
     {
         base.OnDeath();
         playerMovement.SetPlayerState(PlayerMovement.PlayerState.Dead);
+        AudioManager.Instance.PlaySound2D("PlayerDeath");
     }
     
     private void Destroy()

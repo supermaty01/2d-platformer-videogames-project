@@ -27,6 +27,7 @@ public class SkeletonEnemy : EnemyConfig
 
     private void Attack()
     {
+        AudioManager.Instance.PlaySound2D("SkeletonAttack");
         var distance = (_fms.Target.position - transform.position).magnitude;
         var xDiff = _fms.Target.position.x - transform.position.x;
         

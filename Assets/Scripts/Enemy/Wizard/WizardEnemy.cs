@@ -28,6 +28,7 @@ public class WizardEnemy : EnemyConfig
     {
         Projectile newProjectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
         newProjectile.SetDamage(attackDamage);
+        AudioManager.Instance.PlaySound2D("WizardAttack");
     }
     
     private void DestroyWizard()
