@@ -15,6 +15,7 @@ public class WormEnemy : EnemyConfig
         EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
         evt.OnAttackAction += SpawnProjectile;
         evt.OnDestroyAction += DestroyWorm;
+        deathSoundName = "WormDeath";
     }
 
     private void OnDestroy()

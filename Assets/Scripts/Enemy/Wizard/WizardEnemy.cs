@@ -15,6 +15,7 @@ public class WizardEnemy : EnemyConfig
         EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
         evt.OnAttackAction += SpawnBullet;
         evt.OnDestroyAction += DestroyWizard;
+        deathSoundName = "WizardDeath";
     }
 
     private void OnDestroy()

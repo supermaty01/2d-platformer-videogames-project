@@ -16,6 +16,7 @@ public class SkeletonEnemy : EnemyConfig
         evt.OnDestroyAction += DestroySkeleton;
 
         _fms = GetComponent<FiniteStateMachine>();
+        deathSoundName = "SkeletonDeath";
     }
 
     private void OnDestroy()
