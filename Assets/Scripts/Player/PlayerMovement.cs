@@ -6,19 +6,22 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 3f; // velocidad horizontal del personaje
-    public float jumpForce = 7f; // fuerza vertical del salto
+    public float jumpForce = 6f; // fuerza vertical del salto
     public float maxChargeTime = 0.8f; // tiempo máximo de carga del salto
     public LayerMask ground; // capas que se consideran suelo
     public Animator animator; // componente Animator del personaje
     public float maxDistance; // distancia máxima a la que se detecta el suelo
     public Vector3 boxSize; // tamaño del boxcast que detecta el suelo
-    
+    public float bootsSpeedBooster = 2f;
+    public float bootsJumpBooster = 1f;
+
     public Rigidbody2D rb; // componente Rigidbody2D del personaje
     private bool _facingRight = true; // indica si el personaje está mirando a la derecha
     private float _chargeTime; // tiempo de carga del salto
     private bool _isAired; // indica si el personaje está en el aire
-    private Player _player; // componente Player del personaje 
-    private Collider2D _collider; // componente Collider2D del personaje
+    private bool _hasBoots = false;
+    private float _baseSpeed;
+    private float _baseJump;
 
     public enum PlayerState
     {
@@ -33,17 +36,34 @@ public class PlayerMovement : MonoBehaviour
         Defend,
         Dead,
         Hurt,
-        HurtFalling
+        HurtFalling,
+        PowerUp,
+        Run
     }
-    
+
     private PlayerState _playerState;
-    
+
     // Create setter for playerState
     public void SetPlayerState(PlayerState newState)
     {
         _playerState = newState;
     }
-    
+
+    public void SetBoots(bool hasBoots)
+    {
+        _hasBoots = hasBoots;
+        if (hasBoots)
+        {
+            moveSpeed = _baseSpeed + bootsSpeedBooster;
+            jumpForce = _baseJump + bootsJumpBooster;
+        }
+        else
+        {
+            moveSpeed = _baseSpeed;
+            jumpForce = _baseJump;
+        }
+    }
+
     public PlayerState GetPlayerState()
     {
         return _playerState;
@@ -52,19 +72,21 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        _collider = GetComponent<Collider2D>();
         animator = GetComponentInChildren<Animator>();
-        _player = GetComponent<Player>();
+        _baseJump = jumpForce;
+        _baseSpeed = moveSpeed;
     }
 
     private void FixedUpdate()
     {
         var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        if (currentAnimation.IsName("FallingDamage") && currentAnimation.normalizedTime < 1f)
+        if ((currentAnimation.IsName("FallingDamage") || currentAnimation.IsName("PowerUp")) &&
+            currentAnimation.normalizedTime < 1f)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
             return;
         }
+
         float moveInput = Input.GetAxisRaw("Horizontal");
 
         if ((moveInput > 0 && !_facingRight) || (moveInput < 0 && _facingRight))
@@ -72,7 +94,8 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
 
-        if (_playerState != PlayerState.Charge && _playerState != PlayerState.Attack && _playerState != PlayerState.Defend)
+        if (_playerState != PlayerState.Charge && _playerState != PlayerState.Attack &&
+            _playerState != PlayerState.Defend)
         {
             rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         }
@@ -95,6 +118,16 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
+
+        if (_playerState == PlayerState.PowerUp && currentAnimation.IsName("PowerUp") && currentAnimation.normalizedTime > 1f)
+        {
+            _playerState = PlayerState.Idle;
+        }
+        if (_playerState == PlayerState.PowerUp)
+        {
+            PlayAnimation();
+            return;
+        }
         
         // Actualizar las animaciones según el estado del jugador cuando está en el suelo
         if (IsGrounded())
@@ -104,9 +137,9 @@ public class PlayerMovement : MonoBehaviour
                 PlayAnimation();
                 return;
             }
-            
+
             var jumping = CheckJump();
-            
+
             if (!jumping)
             {
                 if (_isAired || (currentAnimation.IsName("Landing") && currentAnimation.normalizedTime < 1f))
@@ -114,11 +147,13 @@ public class PlayerMovement : MonoBehaviour
                     _playerState = PlayerState.Land;
                     _isAired = false;
                 }
-                else if (_playerState == PlayerState.Hurt && currentAnimation.IsName("TakeHit") && currentAnimation.normalizedTime < 1f)
+                else if (_playerState == PlayerState.Hurt && currentAnimation.IsName("TakeHit") &&
+                         currentAnimation.normalizedTime < 1f)
                 {
                     _playerState = PlayerState.Hurt;
                 }
-                else if (Input.GetMouseButtonDown(0) || (currentAnimation.IsName("Attack") && currentAnimation.normalizedTime < 1f))
+                else if (Input.GetMouseButtonDown(0) ||
+                         (currentAnimation.IsName("Attack") && currentAnimation.normalizedTime < 1f))
                 {
                     _playerState = PlayerState.Attack;
                 }
@@ -128,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else if (rb.velocity.x != 0)
                 {
-                    _playerState = PlayerState.Walk;
+                    _playerState = _hasBoots ? PlayerState.Run : PlayerState.Walk;
                 }
                 else
                 {
@@ -139,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _isAired = true;
-            
+
             if (_playerState == PlayerState.Hurt || _playerState == PlayerState.HurtFalling)
             {
                 _playerState = PlayerState.HurtFalling;
@@ -147,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
             else if (Mathf.Abs(rb.velocity.y) < 5)
             {
                 _playerState = PlayerState.JumpPeak;
-            }  
+            }
             else if (rb.velocity.y > 0)
             {
                 _playerState = PlayerState.Jump;
@@ -157,6 +192,7 @@ public class PlayerMovement : MonoBehaviour
                 _playerState = PlayerState.Fall;
             }
         }
+
         PlayAnimation();
     }
 
@@ -166,6 +202,10 @@ public class PlayerMovement : MonoBehaviour
         if (_playerState == PlayerState.Walk)
         {
             animator.Play("Walking");
+        }
+        else if (_playerState == PlayerState.Run)
+        {
+            animator.Play("Running");
         }
         else if (_playerState == PlayerState.Idle)
         {
@@ -212,6 +252,10 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.Play("FallingDamage");
         }
+        else if (_playerState == PlayerState.PowerUp)
+        {
+            animator.Play("PowerUp");
+        }
     }
 
     private bool CheckJump()
@@ -220,6 +264,7 @@ public class PlayerMovement : MonoBehaviour
         {
             return false;
         }
+
         // Verificar si el jugador está cargando el salto
         if (Input.GetKey(KeyCode.Space))
         {
@@ -227,14 +272,16 @@ public class PlayerMovement : MonoBehaviour
             _chargeTime += Time.deltaTime;
             return true;
         }
+
         if (_playerState == PlayerState.Charge)
         {
             Jump();
             return true;
         }
+
         return false;
     }
-    
+
     private void Jump()
     {
         _playerState = PlayerState.Jump;
@@ -246,6 +293,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 _chargeTime = maxChargeTime;
             }
+
             jumpPower += (jumpForce * _chargeTime);
         }
 
@@ -260,7 +308,7 @@ public class PlayerMovement : MonoBehaviour
         _facingRight = !_facingRight;
         transform.Rotate(Vector3.up, 180f);
     }
-    
+
     private bool IsGrounded()
     {
         return Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, maxDistance, ground);

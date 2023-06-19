@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class WormEnemy : EnemyConfig
 {
-    [Header("Projectile")]
-    [SerializeField] private Projectile projectilePrefab;
+    [Header("Projectile")] [SerializeField]
+    private Projectile projectilePrefab;
+
     [SerializeField] private Transform shootPoint;
 
-    [Header("Score")]
-    [SerializeField] private Coin coinPrefab;
-    
+    [Header("Score")] [SerializeField] private Coin coinPrefab;
+
     new void Start()
     {
         InitHealth();
@@ -31,10 +31,10 @@ public class WormEnemy : EnemyConfig
         newProjectile.SetDamage(attackDamage);
         AudioManager.Instance.PlaySound2D("WormAttack");
     }
-    
+
     private void DestroyWorm()
     {
-        Coin newCoin = Instantiate(coinPrefab, transform.position + new Vector3(0,1,0), transform.rotation);
+        Coin newCoin = Instantiate(coinPrefab, transform.position + new Vector3(0, 1, 0), transform.rotation);
         newCoin.DropCoin();
         Destroy(gameObject);
     }

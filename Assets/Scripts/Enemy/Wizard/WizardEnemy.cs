@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class WizardEnemy : EnemyConfig
 {
-    [Header("Projectile")]
-    [SerializeField] private Projectile projectilePrefab;
+    [Header("Projectile")] [SerializeField]
+    private Projectile projectilePrefab;
+
     [SerializeField] private Transform shootPoint;
-    
-    [Header("Score")]
-    [SerializeField] private Coin coinPrefab;
-    
+
+    [Header("Score")] [SerializeField] private Coin coinPrefab;
+
     new void Start()
     {
         InitHealth();
@@ -31,10 +31,10 @@ public class WizardEnemy : EnemyConfig
         newProjectile.SetDamage(attackDamage);
         AudioManager.Instance.PlaySound2D("WizardAttack");
     }
-    
+
     private void DestroyWizard()
     {
-        Coin newCoin = Instantiate(coinPrefab, transform.position + new Vector3(0,1,0), transform.rotation);
+        Coin newCoin = Instantiate(coinPrefab, transform.position + new Vector3(0, 1, 0), transform.rotation);
         newCoin.DropCoin();
         Destroy(gameObject);
     }
