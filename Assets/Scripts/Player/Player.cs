@@ -33,6 +33,7 @@ public class Player : LivingEntity
 
     void Start()
     {
+        GameManager.Instance.target = transform;
         playerMovement = GetComponent<PlayerMovement>();
         InitHealth();
 
@@ -57,7 +58,9 @@ public class Player : LivingEntity
     protected override void OnTakeDamage()
     {
         base.OnTakeDamage();
+        GameEvents.OnPlayerHealthChangeEvent?.Invoke(HealthPoints);
         playerMovement.SetPlayerState(PlayerMovement.PlayerState.Hurt);
+        AudioManager.Instance.PlaySound2D("PlayerTakeDamage");
     }
 
     private void Attack()
@@ -77,6 +80,7 @@ public class Player : LivingEntity
                 }
             }
         }
+        AudioManager.Instance.PlaySound2D("PlayerAttack");
     }
 
     public void SpawnProjectile()
@@ -89,10 +93,11 @@ public class Player : LivingEntity
     {
         base.OnDeath();
         playerMovement.SetPlayerState(PlayerMovement.PlayerState.Dead);
+        AudioManager.Instance.PlaySound2D("PlayerDeath");
     }
 
     private void Destroy()
     {
-        UIManager.instance.ShowGameOverScreen();
+        GameEvents.OnGameOverEvent?.Invoke();
     }
 }

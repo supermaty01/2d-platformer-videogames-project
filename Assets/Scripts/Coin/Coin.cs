@@ -18,7 +18,8 @@ public class Coin : MonoBehaviour
         {
             if ( !_canCollected) return;
             
-            UIManager.instance.AddScore(scoreValue);
+            AudioManager.Instance.PlaySound2D("EarnCoin");
+            GameEvents.OnPlayerScoreChangeEvent?.Invoke(scoreValue);
             Destroy(gameObject);
         }
         else

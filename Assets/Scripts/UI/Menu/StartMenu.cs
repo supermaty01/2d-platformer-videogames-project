@@ -1,10 +1,17 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StartMenu : MonoBehaviour
 {
+    public Button startButton;
+
+    private void Start()
+    {
+        startButton.onClick.AddListener(StartGame);
+    }
+
     public void StartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        GameManager.Instance.StarGame();
     }
 }

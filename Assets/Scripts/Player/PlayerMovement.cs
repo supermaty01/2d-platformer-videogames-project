@@ -263,6 +263,7 @@ public class PlayerMovement : MonoBehaviour
         // Aplicar la fuerza del salto al jugador
         rb.velocity = new Vector2(rb.velocity.x, jumpPower);
         _chargeTime = 0f;
+        AudioManager.Instance.PlaySound2D("PlayerJump");
     }
 
     private void Flip()

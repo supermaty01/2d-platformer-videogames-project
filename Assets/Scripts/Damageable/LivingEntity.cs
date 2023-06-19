@@ -8,8 +8,16 @@ public class LivingEntity : MonoBehaviour, IDamageable
 
     public void TakeHit(int damage = 1)
     {
-        if(HealthPoints <= 0 || IsProtected())
+        if (IsProtected())
+        {
+            AudioManager.Instance.PlaySound2D("PlayerDefend");
             return;
+        }
+        
+        if (HealthPoints <= 0)
+        {
+            return;
+        }
     
         HealthPoints -= damage;
         OnTakeDamage();
