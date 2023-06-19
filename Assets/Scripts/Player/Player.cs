@@ -39,6 +39,7 @@ public class Player : LivingEntity
         base.OnTakeDamage();
         GameEvents.OnPlayerHealthChangeEvent?.Invoke(HealthPoints);
         playerMovement.SetPlayerState(PlayerMovement.PlayerState.Hurt);
+        AudioManager.Instance.PlaySound2D("PlayerTakeDamage");
     }
     
     private void Attack()
@@ -51,12 +52,14 @@ public class Player : LivingEntity
                 targetHit.TakeHit(1);
             }
         }
+        AudioManager.Instance.PlaySound2D("PlayerAttack");
     }
 
     protected override void OnDeath()
     {
         base.OnDeath();
         playerMovement.SetPlayerState(PlayerMovement.PlayerState.Dead);
+        AudioManager.Instance.PlaySound2D("PlayerDeath");
     }
     
     private void Destroy()

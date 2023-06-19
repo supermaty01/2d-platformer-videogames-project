@@ -15,6 +15,7 @@ public class WormEnemy : EnemyConfig
         EnemyAnimationEvent evt = GetComponentInChildren<EnemyAnimationEvent>();
         evt.OnAttackAction += SpawnProjectile;
         evt.OnDestroyAction += DestroyWorm;
+        deathSoundName = "WormDeath";
     }
 
     private void OnDestroy()
@@ -28,6 +29,7 @@ public class WormEnemy : EnemyConfig
     {
         Projectile newProjectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
         newProjectile.SetDamage(attackDamage);
+        AudioManager.Instance.PlaySound2D("WormAttack");
     }
     
     private void DestroyWorm()

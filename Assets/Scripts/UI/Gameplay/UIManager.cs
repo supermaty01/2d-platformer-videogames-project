@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
     {
         scoreScreen.SetActive(false);
         gameOverScreen.SetActive(true);
+        AudioManager.Instance.PlayMusic(AudioMusicType.GameOver);
     }
 
     private void ShowFinishScreen()

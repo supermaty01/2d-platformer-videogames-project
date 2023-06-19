@@ -17,6 +17,8 @@ public class EnemyConfig : LivingEntity
 
     public Vector3 initialPos, finalPos;
 
+    public string deathSoundName;
+
     protected void Start()
     {
         initialPos = initialPointTransform.position;
