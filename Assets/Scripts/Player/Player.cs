@@ -16,11 +16,12 @@ public class Player : LivingEntity
 
     private PlayerMovement playerMovement;
 
-    private bool _hasWindSword = false;
+    private bool _hasWindSword;
 
     public enum PowerUp
     {
         WindSword,
+        Boots,
     }
 
     public void ActivatePowerUp(PowerUp powerUp)
@@ -29,6 +30,16 @@ public class Player : LivingEntity
         {
             _hasWindSword = true;
         }
+        if (powerUp == PowerUp.Boots)
+        {
+            playerMovement.SetBoots(true);
+        }
+    }
+    
+    public void ClearPowerUps()
+    {
+        _hasWindSword = false;
+        playerMovement.SetBoots(false);
     }
 
     void Start()
@@ -60,6 +71,7 @@ public class Player : LivingEntity
         base.OnTakeDamage();
         GameEvents.OnPlayerHealthChangeEvent?.Invoke(HealthPoints);
         playerMovement.SetPlayerState(PlayerMovement.PlayerState.Hurt);
+        ClearPowerUps();
         AudioManager.Instance.PlaySound2D("PlayerTakeDamage");
     }
 
