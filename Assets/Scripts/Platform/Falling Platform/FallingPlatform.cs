@@ -23,6 +23,7 @@ public class FallingPlatform : MonoBehaviour
 
     private IEnumerator Fall()
     {
+        AudioManager.Instance.PlaySound2D("PlatformFalls");
         yield return new WaitForSeconds(fallDelay);
         _collider.enabled = false;
         _rb.bodyType = RigidbodyType2D.Dynamic;

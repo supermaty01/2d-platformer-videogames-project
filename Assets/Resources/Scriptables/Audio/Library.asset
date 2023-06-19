@@ -17,6 +17,8 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 72141df529d3e984fb84aa9097d4a134, type: 3}
   - MusicType: 1
     Clip: {fileID: 8300000, guid: ba45d79c73386ef4cb8eac19c14ca6a0, type: 3}
+  - MusicType: 2
+    Clip: {fileID: 8300000, guid: aa8a0b73de508de43bcb97ca9fe00c71, type: 3}
   soundGroups:
   - groupID: WormAttack
     clips:
@@ -51,3 +53,15 @@ MonoBehaviour:
   - groupID: WormDeath
     clips:
     - {fileID: 8300000, guid: 570025e3179f22249a0e8098c5e21cf8, type: 3}
+  - groupID: WizardDeath
+    clips:
+    - {fileID: 8300000, guid: 2524b567343ec1b4ba1b5838e4313a09, type: 3}
+  - groupID: PlayerJump
+    clips:
+    - {fileID: 8300000, guid: f45635c82d07c114eb61ea76ca172cc3, type: 3}
+  - groupID: EarnCoin
+    clips:
+    - {fileID: 8300000, guid: 618564449924a684e895909fc5cf9344, type: 3}
+  - groupID: PlatformFalls
+    clips:
+    - {fileID: 8300000, guid: 69fab232c8ba98843b3ebf1519fcd85f, type: 3}
