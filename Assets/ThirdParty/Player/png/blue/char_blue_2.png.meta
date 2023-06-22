@@ -967,10 +967,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      char_blue_2_29: 1084988262
+      char_blue_2_36: -2033083609
       char_blue_2_17: 295222776
       char_blue_2_9: -39874023
-      char_blue_2_30: 933819469
+      char_blue_2_29: 1084988262
       char_blue_2_25: 291710084
       char_blue_2_5: 1745173924
       char_blue_2_14: -514969191
@@ -1006,7 +1006,7 @@ TextureImporter:
       char_blue_2_21: -927222279
       char_blue_2_18: -714666301
       char_blue_2_13: -1252932641
-      char_blue_2_36: -2033083609
+      char_blue_2_30: 933819469
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
