@@ -65,3 +65,9 @@ MonoBehaviour:
   - groupID: PlatformFalls
     clips:
     - {fileID: 8300000, guid: 69fab232c8ba98843b3ebf1519fcd85f, type: 3}
+  - groupID: FirstStep
+    clips:
+    - {fileID: 8300000, guid: e85fe76bc96ee2d46861b95d7da00884, type: 3}
+  - groupID: SecondStep
+    clips:
+    - {fileID: 8300000, guid: 074952427730b9e43b9184c61a5bf3b1, type: 3}
