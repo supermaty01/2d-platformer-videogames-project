@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Player : LivingEntity
 {
@@ -42,9 +43,13 @@ public class Player : LivingEntity
         playerMovement.SetBoots(false);
     }
 
-    void Start()
+    private void Awake()
     {
         GameManager.Instance.target = transform;
+    }
+
+    void Start()
+    {
         playerMovement = GetComponent<PlayerMovement>();
         InitHealth();
 
