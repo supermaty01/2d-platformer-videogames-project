@@ -231,7 +231,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 1097130641336795213}
-  target: {fileID: 0}
 --- !u!114 &1097130641769090226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,7 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TotalHealthPoints>k__BackingField: 3
   attackRange: 2
-  attackDuration: 1
+  attackDuration: 3
   attackDamage: 1
   initialPointTransform: {fileID: 1097130639776357906}
   finalPointTransform: {fileID: 1097130640324882416}
@@ -270,6 +269,7 @@ MonoBehaviour:
       Transition: []
   initialPos: {x: 0, y: 0, z: 0}
   finalPos: {x: 0, y: 0, z: 0}
+  deathSoundName: 
   coinPrefab: {fileID: 9186089812136409098, guid: 30ffa22ba216178409e6cccbd0fa49f0, type: 3}
 --- !u!70 &1197448067662876385
 CapsuleCollider2D:
