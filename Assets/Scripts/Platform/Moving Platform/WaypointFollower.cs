@@ -18,11 +18,8 @@ public class WaypointFollower : MonoBehaviour
     }
     void Update()
     {
-        if (transform.position.x >= finalPos.x ||
-            transform.position.x <= initialPos.x)
-        {
-            _speed *= -1;
-        }
-        transform.Translate(_speed * Time.deltaTime * Vector3.right);
+        float d = (initialPos - finalPos).magnitude;
+        float delta = Mathf.PingPong(Time.time * _speed, d);
+        transform.position = Vector3.Lerp(initialPos, finalPos, delta / d);
     }
 }
