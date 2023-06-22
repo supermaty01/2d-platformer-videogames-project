@@ -51,6 +51,8 @@ public class Player : LivingEntity
         var evt = GetComponentInChildren<PlayerAnimationEvent>();
         evt.OnAttackAction += Attack;
         evt.OnDestroyAction += Destroy;
+        evt.OnFirstStepAction += () => AudioManager.Instance.PlaySound2D("FirstStep");
+        evt.OnSecondStepAction += () => AudioManager.Instance.PlaySound2D("SecondStep");
     }
 
     private void OnDestroy()

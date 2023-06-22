@@ -15,6 +15,7 @@ public abstract class PowerUp : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            AudioManager.Instance.PlaySound2D("PlayerPowerUp");
             if (other.TryGetComponent(out PlayerMovement playerMovement))
             {
                 playerMovement.SetPlayerState(PlayerMovement.PlayerState.PowerUp);
