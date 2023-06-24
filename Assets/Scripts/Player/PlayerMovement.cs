@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -79,6 +79,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (CheckPosition())
+        {
+            return;
+        }
+        
         var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         if ((currentAnimation.IsName("FallingDamage") || currentAnimation.IsName("PowerUp")) &&
             currentAnimation.normalizedTime < 1f)
@@ -194,6 +199,20 @@ public class PlayerMovement : MonoBehaviour
         }
 
         PlayAnimation();
+    }
+    
+    private bool CheckPosition()
+    {
+        if (transform.position.y < -5.5)
+        {
+            _playerState = PlayerState.Dead;
+            rb.gravityScale = 0;
+            rb.velocity = Vector2.zero;
+
+            return true;
+        }
+
+        return false;
     }
 
 

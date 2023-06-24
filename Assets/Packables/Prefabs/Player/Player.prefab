@@ -86,8 +86,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6a23103ebd444ca6b734b171de76f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  jumpForce: 6
+  moveSpeed: 3.5
+  jumpForce: 7
   maxChargeTime: 0.8
   ground:
     serializedVersion: 2
@@ -95,7 +95,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   maxDistance: 1.47
   boxSize: {x: 0.7, y: 0.1, z: 0}
-  bootsSpeedBooster: 2
+  bootsSpeedBooster: 1.5
   bootsJumpBooster: 1
   rb: {fileID: 0}
 --- !u!114 &4327948896038801074

@@ -19,7 +19,7 @@ TagManager:
   - Projectile
   - Platform
   - PlayerProjectile
-  - 
+  - Text
   - 
   - 
   - 
@@ -45,6 +45,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 1574638699
+    locked: 0
+  - name: Decoration
+    uniqueID: 2102929123
     locked: 0
   - name: Gameplay
     uniqueID: 2631207205

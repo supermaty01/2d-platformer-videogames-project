@@ -302,10 +302,10 @@ RectTransform:
   m_Father: {fileID: 533647010}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 93}
-  m_SizeDelta: {x: 748.6064, y: 153.2032}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -200.52}
+  m_SizeDelta: {x: 901.3765, y: 151.7482}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &701942146
 MonoBehaviour:
@@ -329,8 +329,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Thank you for playing our game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 93756c6a2ec3bc24abd779702d22edcf, type: 2}
+  m_sharedMaterial: {fileID: 1396270864705131699, guid: 93756c6a2ec3bc24abd779702d22edcf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -354,8 +354,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
-  m_fontSizeBase: 72
+  m_fontSize: 90
+  m_fontSizeBase: 90
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -540,8 +540,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 420, y: 148}
-  m_SizeDelta: {x: 675.278, y: 162.7088}
+  m_AnchoredPosition: {x: 596.5199, y: 137.16107}
+  m_SizeDelta: {x: 1028.3176, y: 184.3867}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1339444142
 MonoBehaviour:
@@ -563,7 +563,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'This games was created by:
+  m_text: 'This game was created by:
 
     - Alejandro Alvarez Botero
 
@@ -572,8 +572,8 @@ MonoBehaviour:
 
     - Miguel Angel Barrera Bustamante'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 93756c6a2ec3bc24abd779702d22edcf, type: 2}
+  m_sharedMaterial: {fileID: 1396270864705131699, guid: 93756c6a2ec3bc24abd779702d22edcf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -657,7 +657,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1545509694}
   - component: {fileID: 1545509693}
-  - component: {fileID: 1545509692}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -665,14 +664,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1545509692
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545509691}
-  m_Enabled: 1
 --- !u!20 &1545509693
 Camera:
   m_ObjectHideFlags: 0

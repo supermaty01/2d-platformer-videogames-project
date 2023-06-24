@@ -38,6 +38,11 @@ public abstract class State
 
     public void CheckTransition(FiniteStateMachine fms, float deltaTime)
     {
+        if (fms.Config.HealthPoints <= 0)
+        {
+            fms.ToState(StateType.Death);
+            return;
+        }
         _stateTimer -= deltaTime;
         
         if(_stateTimer > 0)
