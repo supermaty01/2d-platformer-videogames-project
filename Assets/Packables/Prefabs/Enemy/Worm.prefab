@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6475b4450e128f547a54c5f3d5a4d219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TotalHealthPoints>k__BackingField: 3
+  <TotalHealthPoints>k__BackingField: 5
   attackRange: 10
   attackDuration: 1.5
   attackDamage: 1
@@ -224,6 +224,7 @@ MonoBehaviour:
       Transition: []
   initialPos: {x: 0, y: 0, z: 0}
   finalPos: {x: 0, y: 0, z: 0}
+  deathSoundName: 
   projectilePrefab: {fileID: 671267501440004930, guid: 0cbb920eef90ba04e98be070450ad8ee, type: 3}
   shootPoint: {fileID: 7794752492782506154}
   coinPrefab: {fileID: 9186089812136409098, guid: 30ffa22ba216178409e6cccbd0fa49f0, type: 3}
@@ -240,7 +241,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 7794752492733698875}
-  target: {fileID: 0}
 --- !u!70 &7794752494836393209
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

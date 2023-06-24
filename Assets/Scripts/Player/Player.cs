@@ -69,7 +69,6 @@ public class Player : LivingEntity
 
     protected override bool IsProtected()
     {
-        // TODO Verificar que solo bloquea por el lado que recibe el golpe
         return playerMovement.GetPlayerState() == PlayerMovement.PlayerState.Defend;
     }
 
