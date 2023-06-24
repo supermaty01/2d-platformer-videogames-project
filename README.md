@@ -31,3 +31,6 @@ El juego cuenta con las siguientes características:
 
 Este juego está hecho con Unity 2021.3.18f1. Los assets utilizados son todos de uso libre/no comercial.
 
+## Gameplay
+
+https://github.com/supermaty01/2d-platformer-videogames-project/assets/59462086/30bca18c-797f-4f2e-ad51-31488f7fde63
