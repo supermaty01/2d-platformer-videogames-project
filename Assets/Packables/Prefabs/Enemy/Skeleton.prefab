@@ -245,7 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TotalHealthPoints>k__BackingField: 3
   attackRange: 2
-  attackDuration: 3
+  attackDuration: 1.5
   attackDamage: 1
   initialPointTransform: {fileID: 1097130639776357906}
   finalPointTransform: {fileID: 1097130640324882416}
