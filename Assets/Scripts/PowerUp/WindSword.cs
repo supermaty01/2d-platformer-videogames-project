@@ -22,8 +22,8 @@ public class WindSword : PowerUp
 
     private void Update()
     {
-        float d = (_initPos - _endPos).magnitude;
-        float delta = Mathf.PingPong(Time.time * floatingSpeed, d);
+        var d = (_initPos - _endPos).magnitude;
+        var delta = Mathf.PingPong(Time.time * floatingSpeed, d);
         transform.position = Vector3.Lerp(_initPos, _endPos, delta / d);
     }
 

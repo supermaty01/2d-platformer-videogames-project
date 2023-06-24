@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class MoveUpState : State
 {
+    public MoveUpState() : base("MoveUp")
+    {
+    }
+
     public override StateType Type { get; }
-    
-    public MoveUpState() : base("MoveUp") { }
 
     protected override void OnEnterState(FiniteStateMachine fms)
     {

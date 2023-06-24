@@ -58,10 +58,10 @@ public class GameManager : MonoBehaviour
         while (!asyncLoad.isDone) yield return null;
 
         yield return new WaitForSeconds(1f);
-        
+
         AudioManager.Instance.PlayMusic(AudioMusicType.Gameplay);
     }
-    
+
     private IEnumerator LoadGameplayAsyncScene(int scene)
     {
         var asyncLoad = SceneManager.LoadSceneAsync(scene);

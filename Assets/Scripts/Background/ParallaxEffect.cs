@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class ParallaxEffect : MonoBehaviour
 {
-    private float _startingPos, _lengthOfSprite;
-    public float amountOfParallax; 
+    public float amountOfParallax;
     public Camera mainCamera;
+    private float _startingPos, _lengthOfSprite;
 
     private void Start()
     {
@@ -23,12 +23,7 @@ public class ParallaxEffect : MonoBehaviour
         transform.position = newPosition;
 
         if (temp > _startingPos + _lengthOfSprite / 2)
-        {
             _startingPos += _lengthOfSprite;
-        }
-        else if (temp < _startingPos - _lengthOfSprite / 2)
-        {
-            _startingPos -= _lengthOfSprite;
-        }
+        else if (temp < _startingPos - _lengthOfSprite / 2) _startingPos -= _lengthOfSprite;
     }
 }

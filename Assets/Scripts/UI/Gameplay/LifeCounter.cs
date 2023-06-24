@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class LifeCounter : MonoBehaviour
 {
-    private List<Image> _hearts = new List<Image>();
-    
+    private readonly List<Image> _hearts = new();
+
     private void Start()
     {
         GameEvents.OnPlayerHealthChangeEvent += UpdateHearts;
@@ -26,6 +26,7 @@ public class LifeCounter : MonoBehaviour
 
     private void UpdateHearts(int health)
     {
+        // When the player is hit, the color of one of the hearts is changed to gray
         for (var i = 0; i < _hearts.Count; i++)
             if (i < health)
                 _hearts[i].color = Color.white;

@@ -1,36 +1,46 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StateType { Idle, Attack, Death, MoveDown, MoveUp, Patrol }
+public enum StateType
+{
+    Idle,
+    Attack,
+    Death,
+    MoveDown,
+    MoveUp,
+    Patrol
+}
 
 public abstract class State
 {
-    [HideInInspector] 
-    public string name = "Idle";
-    private readonly List<StateTransition> _transitions = new List<StateTransition>();
+    private readonly List<StateTransition> _transitions = new();
 
     private float _stateDuration;
     private float _stateTimer;
 
-    public State(string name) => this.name = name;
-    
+    [HideInInspector] public string name = "Idle";
+
+    public State(string name)
+    {
+        this.name = name;
+    }
+
     public abstract StateType Type { get; }
     protected abstract void OnEnterState(FiniteStateMachine fms);
     protected abstract void OnUpdateState(FiniteStateMachine fms, float deltaTime);
     protected abstract void OnExitState(FiniteStateMachine fms);
-    
+
     public void OnEnter(FiniteStateMachine fms)
     {
         OnEnterState(fms);
         _stateTimer = _stateDuration;
     }
-    
+
     public void OnUpdate(FiniteStateMachine fms, float deltaTime)
     {
         OnUpdateState(fms, deltaTime);
     }
-    
+
     public void OnExit(FiniteStateMachine fms)
     {
         OnExitState(fms);
@@ -43,28 +53,27 @@ public abstract class State
             fms.ToState(StateType.Death);
             return;
         }
+
         _stateTimer -= deltaTime;
-        
-        if(_stateTimer > 0)
+
+        if (_stateTimer > 0)
             return;
 
         _stateTimer = 0;
-        
-        for (int i = 0; i < _transitions.Count; i++)
-        {
+
+        for (var i = 0; i < _transitions.Count; i++)
             if (_transitions[i].Check(fms))
             {
                 fms.ToState(_transitions[i].TargetState);
                 break;
             }
-        }
     }
 
     protected void SetStateDuration(float time)
     {
         _stateDuration = time;
     }
-    
+
     public void AddTransition(StateType targetState, StateDecision decision)
     {
         _transitions.Add(new StateTransition
@@ -73,7 +82,7 @@ public abstract class State
             Decision = decision
         });
     }
-    
+
     public static State CreateState(StateType stateType)
     {
         switch (stateType)
@@ -91,6 +100,7 @@ public abstract class State
             case StateType.Patrol:
                 return new PatrolState();
         }
+
         return null;
     }
 }

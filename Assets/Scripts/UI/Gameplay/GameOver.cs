@@ -19,12 +19,12 @@ public class GameOver : MonoBehaviour
         quitButton.transform.gameObject.SetActive(true);
     }
 
-    public void PlayAgain()
+    private void PlayAgain()
     {
         GameManager.Instance.RetryLevel();
     }
 
-    public void Quit()
+    private void Quit()
     {
         GameManager.Instance.MainMenu();
     }

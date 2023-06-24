@@ -1,54 +1,29 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : LivingEntity
 {
-    [Header("Projectile")] [SerializeField]
-    private Projectile projectilePrefab;
-
-    [SerializeField] private Transform shootPoint;
-
-
-    [SerializeField] private LayerMask _targetLayerMask;
-
-    [SerializeField] private float attackRange;
-
-    [SerializeField] private int windAttackDamage = 2;
-
-    private PlayerMovement playerMovement;
-
-    private bool _hasWindSword;
-
     public enum PowerUp
     {
         WindSword,
-        Boots,
+        Boots
     }
 
-    public void ActivatePowerUp(PowerUp powerUp)
-    {
-        if (powerUp == PowerUp.WindSword)
-        {
-            _hasWindSword = true;
-        }
-        if (powerUp == PowerUp.Boots)
-        {
-            playerMovement.SetBoots(true);
-        }
-    }
-    
-    public void ClearPowerUps()
-    {
-        _hasWindSword = false;
-        playerMovement.SetBoots(false);
-    }
+    [Header("Projectile")] 
+    [SerializeField] private Projectile projectilePrefab;
+    [SerializeField] private Transform shootPoint;
+    [SerializeField] private LayerMask _targetLayerMask;
+    [SerializeField] private float attackRange;
+    [SerializeField] private int windAttackDamage = 2;
+
+    private bool _hasWindSword;
+    private PlayerMovement playerMovement;
 
     private void Awake()
     {
         GameManager.Instance.target = transform;
     }
 
-    void Start()
+    private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
         InitHealth();
@@ -65,6 +40,18 @@ public class Player : LivingEntity
         var evt = GetComponentInChildren<PlayerAnimationEvent>();
         evt.OnAttackAction -= Attack;
         evt.OnDestroyAction -= Destroy;
+    }
+
+    public void ActivatePowerUp(PowerUp powerUp)
+    {
+        if (powerUp == PowerUp.WindSword) _hasWindSword = true;
+        if (powerUp == PowerUp.Boots) playerMovement.SetBoots(true);
+    }
+
+    public void ClearPowerUps()
+    {
+        _hasWindSword = false;
+        playerMovement.SetBoots(false);
     }
 
     protected override bool IsProtected()
@@ -89,21 +76,18 @@ public class Player : LivingEntity
         }
         else
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, attackRange, _targetLayerMask);
+            var hit = Physics2D.Raycast(transform.position, transform.right, attackRange, _targetLayerMask);
             if (hit.collider != null)
-            {
                 if (hit.collider.TryGetComponent(out IDamageable targetHit))
-                {
-                    targetHit.TakeHit(1);
-                }
-            }
+                    targetHit.TakeHit();
         }
+
         AudioManager.Instance.PlaySound2D("PlayerAttack");
     }
 
     public void SpawnProjectile()
     {
-        Projectile newProjectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+        var newProjectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
         newProjectile.SetDamage(windAttackDamage);
     }
 

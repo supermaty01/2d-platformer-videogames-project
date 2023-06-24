@@ -2,14 +2,16 @@ using UnityEngine;
 
 public class MoveDownState : State
 {
+    public MoveDownState() : base("MoveDown")
+    {
+    }
+
     public override StateType Type { get; }
-    
-    public MoveDownState() : base("MoveDown") { }
 
     protected override void OnEnterState(FiniteStateMachine fms)
     {
         fms.TriggerAnimation("MoveDown");
-        fms.Config.speed = - fms.Config.speed;
+        fms.Config.speed = -fms.Config.speed;
     }
 
     protected override void OnUpdateState(FiniteStateMachine fms, float deltaTime)

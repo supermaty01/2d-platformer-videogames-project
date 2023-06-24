@@ -3,9 +3,9 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     public int scoreValue = 1;
+    private bool _canCollected = true;
 
     private Rigidbody2D _rb;
-    private bool _canCollected = true;
 
     private void Awake()
     {
@@ -16,8 +16,8 @@ public class Coin : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if ( !_canCollected) return;
-            
+            if (!_canCollected) return;
+
             AudioManager.Instance.PlaySound2D("EarnCoin");
             GameEvents.OnPlayerScoreChangeEvent?.Invoke(scoreValue);
             Destroy(gameObject);
