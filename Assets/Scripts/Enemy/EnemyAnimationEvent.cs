@@ -10,7 +10,7 @@ public class EnemyAnimationEvent : MonoBehaviour
     {
         OnAttackAction?.Invoke();
     }
-    
+
     public void DestroyEvent()
     {
         OnDestroyAction?.Invoke();

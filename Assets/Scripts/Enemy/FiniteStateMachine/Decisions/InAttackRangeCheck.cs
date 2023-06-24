@@ -5,9 +5,10 @@ public class InAttackRangeCheck : StateDecision
 {
     public override bool Check(FiniteStateMachine fms)
     {
-        float distance = (fms.Target.position - fms.transform.position).magnitude;
-        float xDiff = fms.Target.position.x - fms.transform.position.x;
+        var distance = (fms.Target.position - fms.transform.position).magnitude;
+        var xDiff = fms.Target.position.x - fms.transform.position.x;
 
-        return distance <= fms.Config.attackRange && Mathf.Sign(xDiff) == Mathf.Sign(fms.transform.localScale.x) && fms.Target.position.y >= fms.transform.position.y-1;
+        return distance <= fms.Config.attackRange && Mathf.Sign(xDiff) == Mathf.Sign(fms.transform.localScale.x) &&
+               fms.Target.position.y >= fms.transform.position.y - 1;
     }
 }

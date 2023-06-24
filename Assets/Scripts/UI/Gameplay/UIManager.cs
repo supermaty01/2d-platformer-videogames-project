@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject scoreScreen;
     public TextMeshProUGUI scoreText;
+
+    [Header("Screens")] 
+    public GameObject scoreScreen;
     public GameObject gameOverScreen;
     public GameObject finishScreen;
-
 
     private int _score;
 
@@ -16,7 +17,7 @@ public class UIManager : MonoBehaviour
         GameEvents.OnPlayerScoreChangeEvent += AddScore;
         GameEvents.OnGameOverEvent += ShowGameOverScreen;
         GameEvents.OnEndLevelEvent += ShowFinishScreen;
-        
+
         scoreText.text = _score.ToString();
     }
 

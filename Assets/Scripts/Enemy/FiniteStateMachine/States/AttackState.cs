@@ -1,12 +1,10 @@
-﻿using UnityEngine;
-
-public class AttackState : State
+﻿public class AttackState : State
 {
-    public override StateType Type { get; }
-    
     public AttackState() : base("Attack")
     {
     }
+
+    public override StateType Type { get; }
 
     protected override void OnEnterState(FiniteStateMachine fms)
     {

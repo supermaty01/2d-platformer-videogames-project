@@ -1,28 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 3f; // velocidad horizontal del personaje
-    public float jumpForce = 6f; // fuerza vertical del salto
-    public float maxChargeTime = 0.8f; // tiempo máximo de carga del salto
-    public LayerMask ground; // capas que se consideran suelo
-    public Animator animator; // componente Animator del personaje
-    public float maxDistance; // distancia máxima a la que se detecta el suelo
-    public Vector3 boxSize; // tamaño del boxcast que detecta el suelo
-    public float bootsSpeedBooster = 2f;
-    public float bootsJumpBooster = 1f;
-
-    public Rigidbody2D rb; // componente Rigidbody2D del personaje
-    private bool _facingRight = true; // indica si el personaje está mirando a la derecha
-    private float _chargeTime; // tiempo de carga del salto
-    private bool _isAired; // indica si el personaje está en el aire
-    private bool _hasBoots = false;
-    private float _baseSpeed;
-    private float _baseJump;
-
     public enum PlayerState
     {
         Idle,
@@ -41,33 +20,30 @@ public class PlayerMovement : MonoBehaviour
         Run
     }
 
+    public LayerMask ground;
+    
+    [Header("Movement")]
+    public float moveSpeed = 3f;
+    public Vector3 boxSize;
+    
+    [Header("Jump")]
+    public float jumpForce = 6f;
+    public float maxChargeTime = 0.8f;
+    public float maxDistance;
+    
+    [Header("Power Ups")]
+    public float bootsSpeedBooster = 2f;
+    public float bootsJumpBooster = 1f;
+
+    private float _baseJump;
+    private float _baseSpeed;
+    private float _chargeTime;
+    private bool _facingRight = true;
+    private bool _hasBoots;
+    private bool _isAired;
+    private Animator animator;
+    private Rigidbody2D rb;
     private PlayerState _playerState;
-
-    // Create setter for playerState
-    public void SetPlayerState(PlayerState newState)
-    {
-        _playerState = newState;
-    }
-
-    public void SetBoots(bool hasBoots)
-    {
-        _hasBoots = hasBoots;
-        if (hasBoots)
-        {
-            moveSpeed = _baseSpeed + bootsSpeedBooster;
-            jumpForce = _baseJump + bootsJumpBooster;
-        }
-        else
-        {
-            moveSpeed = _baseSpeed;
-            jumpForce = _baseJump;
-        }
-    }
-
-    public PlayerState GetPlayerState()
-    {
-        return _playerState;
-    }
 
     private void Start()
     {
@@ -75,39 +51,6 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         _baseJump = jumpForce;
         _baseSpeed = moveSpeed;
-    }
-
-    private void FixedUpdate()
-    {
-        if (CheckPosition())
-        {
-            return;
-        }
-        
-        var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        if ((currentAnimation.IsName("FallingDamage") || currentAnimation.IsName("PowerUp")) &&
-            currentAnimation.normalizedTime < 1f)
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-            return;
-        }
-
-        float moveInput = Input.GetAxisRaw("Horizontal");
-
-        if ((moveInput > 0 && !_facingRight) || (moveInput < 0 && _facingRight))
-        {
-            Flip();
-        }
-
-        if (_playerState != PlayerState.Charge && _playerState != PlayerState.Attack &&
-            _playerState != PlayerState.Defend)
-        {
-            rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        }
     }
 
     private void Update()
@@ -119,22 +62,16 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (currentAnimation.IsName("FallingDamage") && currentAnimation.normalizedTime < 1f)
-        {
-            return;
-        }
+        if (currentAnimation.IsName("FallingDamage") && currentAnimation.normalizedTime < 1f) return;
 
-        if (_playerState == PlayerState.PowerUp && currentAnimation.IsName("PowerUp") && currentAnimation.normalizedTime > 1f)
-        {
-            _playerState = PlayerState.Idle;
-        }
+        if (_playerState == PlayerState.PowerUp && currentAnimation.IsName("PowerUp") &&
+            currentAnimation.normalizedTime > 1f) _playerState = PlayerState.Idle;
         if (_playerState == PlayerState.PowerUp)
         {
             PlayAnimation();
             return;
         }
         
-        // Actualizar las animaciones según el estado del jugador cuando está en el suelo
         if (IsGrounded())
         {
             if (_playerState == PlayerState.Hurt && !currentAnimation.IsName("TakeHit"))
@@ -181,26 +118,67 @@ public class PlayerMovement : MonoBehaviour
             _isAired = true;
 
             if (_playerState == PlayerState.Hurt || _playerState == PlayerState.HurtFalling)
-            {
                 _playerState = PlayerState.HurtFalling;
-            }
             else if (Mathf.Abs(rb.velocity.y) < 5)
-            {
                 _playerState = PlayerState.JumpPeak;
-            }
             else if (rb.velocity.y > 0)
-            {
                 _playerState = PlayerState.Jump;
-            }
             else
-            {
                 _playerState = PlayerState.Fall;
-            }
         }
 
         PlayAnimation();
     }
-    
+
+    private void FixedUpdate()
+    {
+        if (CheckPosition()) return;
+
+        var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
+        if ((currentAnimation.IsName("FallingDamage") || currentAnimation.IsName("PowerUp")) &&
+            currentAnimation.normalizedTime < 1f)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            return;
+        }
+
+        var moveInput = Input.GetAxisRaw("Horizontal");
+
+        if ((moveInput > 0 && !_facingRight) || (moveInput < 0 && _facingRight)) Flip();
+
+        if (_playerState != PlayerState.Charge && _playerState != PlayerState.Attack &&
+            _playerState != PlayerState.Defend)
+            rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+        else
+            rb.velocity = new Vector2(0, rb.velocity.y);
+    }
+
+    // Create setter for playerState
+    public void SetPlayerState(PlayerState newState)
+    {
+        _playerState = newState;
+    }
+
+    public void SetBoots(bool hasBoots)
+    {
+        _hasBoots = hasBoots;
+        if (hasBoots)
+        {
+            moveSpeed = _baseSpeed + bootsSpeedBooster;
+            jumpForce = _baseJump + bootsJumpBooster;
+        }
+        else
+        {
+            moveSpeed = _baseSpeed;
+            jumpForce = _baseJump;
+        }
+    }
+
+    public PlayerState GetPlayerState()
+    {
+        return _playerState;
+    }
+
     private bool CheckPosition()
     {
         if (transform.position.y < -5.5)
@@ -279,12 +257,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CheckJump()
     {
-        if (_playerState == PlayerState.Dead || _playerState == PlayerState.Hurt)
-        {
-            return false;
-        }
-
-        // Verificar si el jugador está cargando el salto
+        if (_playerState == PlayerState.Dead || _playerState == PlayerState.Hurt) return false;
+        
         if (Input.GetKey(KeyCode.Space))
         {
             _playerState = PlayerState.Charge;
@@ -304,19 +278,15 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         _playerState = PlayerState.Jump;
-        // Calcular la fuerza del salto
         var jumpPower = jumpForce;
+        
         if (_chargeTime > 0)
         {
-            if (_chargeTime > maxChargeTime)
-            {
-                _chargeTime = maxChargeTime;
-            }
+            if (_chargeTime > maxChargeTime) _chargeTime = maxChargeTime;
 
-            jumpPower += (jumpForce * _chargeTime);
+            jumpPower += jumpForce * _chargeTime;
         }
 
-        // Aplicar la fuerza del salto al jugador
         rb.velocity = new Vector2(rb.velocity.x, jumpPower);
         _chargeTime = 0f;
         AudioManager.Instance.PlaySound2D("PlayerJump");

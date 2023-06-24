@@ -19,6 +19,7 @@ public class FSMStateData
 public class FSMTransitionData
 {
     public StateType TargetState;
+
     [Header("Null means it rely in the State Timer")]
     public StateDecision Decision;
 }

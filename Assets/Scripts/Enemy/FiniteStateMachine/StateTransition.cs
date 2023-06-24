@@ -1,11 +1,11 @@
 public class StateTransition
 {
-    public StateType TargetState;
     public StateDecision Decision;
+    public StateType TargetState;
 
     public bool Check(FiniteStateMachine fms)
     {
-        if(Decision != null)
+        if (Decision != null)
             return Decision.Check(fms);
 
         return true;

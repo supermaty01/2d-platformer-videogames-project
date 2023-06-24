@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class WizardEnemy : EnemyConfig
 {
-    [Header("Projectile")] [SerializeField]
-    private Projectile projectilePrefab;
-
+    [Header("Projectile")] 
+    [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private Transform shootPoint;
 
-    [Header("Score")] [SerializeField] private Coin coinPrefab;
+    [Header("Score")]
+    [SerializeField] private Coin coinPrefab;
 
     new void Start()
     {

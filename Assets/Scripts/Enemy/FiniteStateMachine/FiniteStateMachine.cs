@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class FiniteStateMachine : MonoBehaviour
 {
-    [Space(10)] [SerializeField] private Animator anim;
+    [Space(10)] 
+    [SerializeField] private Animator anim;
 
     private readonly Dictionary<StateType, State> _statesDic = new();
     private StateType _currentState;
